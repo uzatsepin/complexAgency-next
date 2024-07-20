@@ -30,7 +30,7 @@ export default function PortfolioCard({image, title, descr, type, technologiesIc
                     </span>
                 </div>
             </div>
-            <div className="p-6 bg-zinc-900 rounded-b-3xl">
+            <div className="p-6 bg-zinc-800 rounded-b-3xl">
                 <div className="mb-4 flex gap-4 ">
                     <div className="text-xs">{type}</div>
                     <div>

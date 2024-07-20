@@ -1,6 +1,7 @@
 import React from "react";
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { Button } from "../ui/moving-border";
+import Image from "next/image";
 
 export default function Contacts() {
     const title = [
@@ -16,9 +17,9 @@ export default function Contacts() {
 
     return (
         <div className="bg-bgFooter">
-            <div className="container mx-auto py-10 px-4 sm:px-0">
+            <div className="container mx-auto py-10 px-4 sm:px-0 relative">
                 <div>
-                    <TypewriterEffect words={title} className="text-center md:left-left"/>
+                    <TypewriterEffect words={title} className="md:left-left"/>
                 </div>
                 <div className="flex md:gap-8 flex-col xl:flex-row">
                     <div className="flex flex-col">
@@ -107,6 +108,9 @@ export default function Contacts() {
                             </Button>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <Image src='/phone-img.png' alt="phone-img" width={500} height={498} className="absolute -bottom-10 right-0 hidden lg:flex"/>
                 </div>
             </div>
         </div>

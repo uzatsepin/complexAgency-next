@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://complex-agency-next.vercel.app'), // Установите ваш домен здесь
   title: "Complex Agency – комплексні рішення для твого бізнесу",
   description: "Ми - агенство цифрових рішень під ключ, від дизайну до розробки, ми виконаємо твое побажання.",
+  icons: {
+    icon: '/favicon.png'
+  },
   openGraph: {
     title: 'Complex Agency – комплексні рішення для твого бізнесу',
     description: 'Ми - агенство цифрових рішень під ключ, від дизайну до розробки, ми виконаємо твое побажання.',

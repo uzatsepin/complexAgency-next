@@ -1,4 +1,5 @@
 import Contacts from "@/components/Contacts/Contacts";
+import Footer from "@/components/Footer/Footer";
 import HeroPage from "@/components/HeroPage/HeroPage";
 import Tarifs from "@/components/Tarifs/Tarifs";
 import WhyUs from "@/components/WhyUs/WhyUs";
@@ -14,7 +15,7 @@ export default function Home() {
       <Works />
       <Tarifs />
       <Contacts />
-
+      <Footer />
       <Analytics />
    </div>
   );

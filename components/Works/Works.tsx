@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PortfolioCard from "../PortfolioCard/PortfolioCard";
+import PortfolioCard from "./PortfolioCard/PortfolioCard";
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { fadeIn } from "@/lib/variants";
 import { motion } from "framer-motion";
@@ -102,7 +102,7 @@ export default function Works() {
     ];
 
     return (
-        <div className="bg-worksBg bg-cover bg-center min-h-screen">
+        <section id="portfolio" className="bg-worksBg bg-cover bg-center min-h-screen">
             <div className="container mx-auto px-2 sm:px-0">
                 <div className="my-24">
                     <TypewriterEffect
@@ -132,6 +132,6 @@ export default function Works() {
                     </Button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

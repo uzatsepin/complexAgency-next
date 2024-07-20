@@ -92,7 +92,7 @@ export default function WhyUs() {
     ]
 
     return (
-        <div className="bg-wavesBg bg-cover bg-center min-h-screen">
+        <section id="whyUs" className="bg-wavesBg bg-cover bg-center min-h-screen">
             <div className="max-w-[1270px] mx-auto my-[86px] px-4 xl:px-0">
                 <div className="flex gap-4 justify-between flex-col xl:flex-row">
                     <div className="max-w-[670px]">
@@ -102,7 +102,7 @@ export default function WhyUs() {
                             комплексні бізнес-рішення. З нами ваш бізнес досягне нових висот.
                         </p>
                         <p className="text-[#FFFFFF]/65 text-lg mt-4 sm:mt-10 text-center md:text-left">Перегляньте наше портфоліо - воно говорить саме за себе.</p>
-                        <div>Портфоліо</div>
+                        <a href="#portfolio" className="py-4 px-8 font-bold border-[#2CEEC5] border mt-6 md:w-fit bg-[#161617] shadow-shadowInput custom-element flex items-center justify-center w-full mb-8 md:mb-0">Портфоліо</a>
                     </div>
                     <motion.div
                         variants={fadeIn("top", 0.2)}
@@ -197,6 +197,6 @@ export default function WhyUs() {
                     <Testimonials />
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

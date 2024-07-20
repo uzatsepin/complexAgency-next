@@ -1,30 +1,31 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { fadeIn } from "@/lib/variants";
-import { motion } from "framer-motion";
 import { Button } from "../ui/moving-border";
+import { Modal, ModalBody, ModalContent, ModalTrigger } from "../ui/animated-modal";
 
 export default function Header() {
     const links = [
         {
             name: "Головна",
-            link: "/",
+            link: "#hero",
             icon: "lucide:home"
         },
         {
-            name: "Чому саме мы?",
-            link: "/",
+            name: "Про нас",
+            link: "#whyUs",
             icon: "lucide:shield-question"
         },
         {
             name: "Контакти",
-            link: "/",
+            link: "#contacts",
             icon: "lucide:phone-call"
         }
     ];
 
     return (
-        <div className="flex items-center justify-between relative px-2 md:px-0">
+        <div className="flex items-center justify-between px-2 md:px-0">
             <div>
                 <Image
                     src="./logo.svg"
@@ -34,15 +35,14 @@ export default function Header() {
                 />
             </div>
             <div>
-                <ul className="gap-10 border border-[#FFFFFF30] px-6 py-2 rounded-full hidden md:flex">
+                <ul className="gap-2 md:gap-10 border border-[#FFFFFF30] px-2 py-1 md:px-6 md:py-2 rounded-full flex fixed md:relative right-1/2 md:right-0 translate-x-1/2 md:translate-x-0 bottom-10 md:bottom-0 z-10 w-11/12 md:w-fit bg-zinc-900  bg-opacity-80 backdrop-blur-2xl justify-center">
                     {links.map((link) => (
                         <li
                             key={link.name}
-                            className="flex items-center border border-transparent gap-2 py-2 px-4 rounded-full hover:bg-[#21232C] transition-all duration-300 cursor-pointer">
-                            {/* <Icon icon={link.icon} /> */}
+                            className="flex items-center border border-transparent gap-2 py-2 px-4 rounded-full hover:bg-[#21232C] transition-all duration-300 cursor-pointer hover:text-[#2EECC5]">
                             <a
                                 href={link.link}
-                                className="text-lg">
+                                className="text-md md:text-lg">
                                 {link.name}
                             </a>
                         </li>
@@ -50,11 +50,64 @@ export default function Header() {
                 </ul>
             </div>
             <div>
-                <Button
-                    borderRadius="9999px"
-                    className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
-                    Замовити
-                </Button>
+                <Modal>
+                    <ModalTrigger>
+                        <Button
+                            borderRadius="9999px"
+                            className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
+                            Замовити
+                        </Button>
+                    </ModalTrigger>
+                    <ModalBody className="bg-zinc-900">
+                        <ModalContent>
+                            <div className="text-2xl">Залишити заявку?</div>
+
+                            <div className="mt-8">
+                                <div className="relative w-full">
+                                    <label
+                                        htmlFor="name"
+                                        className="block mb-2">
+                                        Ваше ім&apos;я
+                                    </label>
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                        placeholder="Ваше ім'я"
+                                    />
+                                </div>
+
+                                <div className="mt-4">
+                                    <div className="relative w-full">
+                                        <label
+                                            htmlFor="contact"
+                                            className="block mb-2">
+                                            Пошта\Telegram
+                                        </label>
+                                        <input
+                                            id="contact"
+                                            type="text"
+                                            className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                            placeholder="@username\user@gmail.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 flex justify-center">
+                                    <Button
+                                        borderRadius="9999px"
+                                        className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
+                                        Надіслати
+                                    </Button>
+                                </div>
+                                <div className="mt-4 text-center text-xs text-white/80">
+                                    Менеджер звʼяжеться з вами якомога швидше.
+                                    <span>Всі права захищено.</span>
+                                </div>
+                            </div>
+                        </ModalContent>
+                    </ModalBody>
+                </Modal>
             </div>
         </div>
     );
