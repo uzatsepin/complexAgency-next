@@ -12,15 +12,19 @@ import { Testimonials } from "../testimonials/testimonials";
 export default function WhyUs() {
     const titleText = [
         {
-            text: "Чому",
+            text: "Про",
             className: "text-white"
         },
         {
-            text: "саме",
+            text: "компанію",
             className: "text-white"
         },
         {
-            text: "ми?",
+            text: "Complex",
+            className: "text-[#2CE8C2]"
+        },
+        {
+            text: "Agency",
             className: "text-[#2CE8C2]"
         }
     ];
@@ -97,11 +101,11 @@ export default function WhyUs() {
                 <div className="flex gap-4 justify-between flex-col xl:flex-row">
                     <div className="max-w-[670px]">
                         <TypewriterEffect words={titleText} className="text-center md:text-left"/>
-                        <p className="text-[#FFFFFF]/65 text-lg mt-6 text-center md:text-left">
+                        <p className="text-[#FFFFFF]/65 text-md md:text-lg mt-6 text-center md:text-left">
                             Ми – агенція, що спеціалізується на моушн-дизайні, розробці, лендінгах, брендингу та дизайні. Використовуємо
                             комплексні бізнес-рішення. З нами ваш бізнес досягне нових висот.
                         </p>
-                        <p className="text-[#FFFFFF]/65 text-lg mt-4 sm:mt-10 text-center md:text-left">Перегляньте наше портфоліо - воно говорить саме за себе.</p>
+                        <p className="text-[#FFFFFF]/65 text-md md:text-lg mt-4 sm:mt-10 text-center md:text-left">Перегляньте наше портфоліо - воно говорить саме за себе.</p>
                         <a href="#portfolio" className="py-4 px-8 font-bold border-[#2CEEC5] border mt-6 md:w-fit bg-[#161617] shadow-shadowInput custom-element flex items-center justify-center w-full mb-8 md:mb-0">Портфоліо</a>
                     </div>
                     <motion.div
@@ -145,14 +149,14 @@ export default function WhyUs() {
                             <div className="flex items-center justify-center gap-4">
                                 <Icon
                                     icon="icon-park-outline:success"
-                                    className="text-[#2EECC5] text-4xl"
+                                    className="text-[#2EECC5] text-2xl md:text-4xl"
                                 />
-                                <h3 className="font-bold text-xl text-center">Виконано проєктів</h3>
+                                <h3 className="font-normal md:font-bold text-xl text-center">Виконано проєктів</h3>
                             </div>
                             <div className="flex items-center justify-center mt-4">
                                 <Counter
                                     targetValue={32}
-                                    className="text-7xl"
+                                    className="text-5xl md:text-7xl"
                                 />
                             </div>
                         </div>
@@ -160,31 +164,31 @@ export default function WhyUs() {
                             <div className="flex items-center justify-center gap-4">
                                 <Icon
                                     icon="bi:person-heart"
-                                    className="text-[#2EECC5] text-4xl"
+                                    className="text-[#2EECC5] text-2xl md:text-4xl"
                                 />
-                                <h3 className="font-bold text-xl text-center">Задоволених клієнтів</h3>
+                                <h3 className="font-normal md:font-bold text-xl text-center">Задоволених клієнтів</h3>
                             </div>
                             <div className="flex items-center justify-center mt-4">
                                 <Counter
                                     targetValue={31}
-                                    className="text-7xl"
+                                    className="text-5xl md:text-7xl"
                                 />
                             </div>
                         </div>
-                        <div className="shadow-lg border border-[#2EECC5] rounded-xl p-6 bg-zinc-900">
+                        <div className="shadow-lg border border-[#2EECC5] rounded-xl p-4 md:p-6 bg-zinc-900">
                             <div className="flex items-center justify-center gap-4">
                                 <Icon
                                     icon="solar:tag-price-bold"
-                                    className="text-[#2EECC5] text-4xl"
+                                    className="text-[#2EECC5] text-2xl md:text-4xl"
                                 />
-                                <h3 className="font-bold text-xl text-center">Збільшили середній чек на</h3>
+                                <h3 className="font-normal md:font-bold text-xl text-center">Збільшили середній чек на</h3>
                             </div>
                             <div className="flex items-center justify-center mt-4">
                                 <Counter
                                     targetValue={23}
-                                    className="text-7xl"
+                                    className="text-5xl md:text-7xl"
                                 />
-                                <span className="text-7xl">%</span>
+                                <span className="text-5xl md:text-7xl">%</span>
                             </div>
                         </div>
                     </div>

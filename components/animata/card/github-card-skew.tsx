@@ -71,7 +71,7 @@ export default function GithubCardSkew({title, text, image}:GithubCardSkewProps)
   return (
     <div
       ref={containerRef}
-      className="flex max-w-full md:max-w-[400px] transform-gpu flex-col gap-4 rounded-3xl border border-zinc-500 bg-zinc-900 p-10 text-zinc-200 transition-transform ease-linear will-change-transform relative shadow-[0px 0px 150px rgba(59, 95, 150, 0.35)]"
+      className="flex max-w-full md:max-w-[400px] transform-gpu flex-col gap-4 rounded-3xl border border-zinc-500 bg-zinc-900 p-6 pb-10 md:p-10 text-zinc-200 transition-transform ease-linear will-change-transform relative shadow-[0px 0px 150px rgba(59, 95, 150, 0.35)]"
       style={{
         transform: "perspective(400px) rotateX(var(--x)) rotateY(var(--y))",
         transitionDuration: "50ms",
@@ -97,9 +97,9 @@ export default function GithubCardSkew({title, text, image}:GithubCardSkewProps)
         containerRef.current.style.setProperty("--y", "0deg");
       }}
     >
-      <h1 className=" text-2xl font-bold tracking-tight">{title}</h1>
+      <h1 className="text-xl  md:text-2xl font-bold tracking-tight">{title}</h1>
 
-      <p className="text-lg text-[#FFFFFF]/80 pb-30">{text}</p>
+      <p className="text-md md:text-lg text-[#FFFFFF]/80 pb-30">{text}</p>
 
       <Image src={image} width={150} height={150} alt={title} className="absolute right-0 bottom-0 -z-10 opacity-30"/>
     </div>
