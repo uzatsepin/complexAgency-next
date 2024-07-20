@@ -32,6 +32,7 @@ export default function Header() {
                     width={131}
                     height={65}
                     alt="logo"
+                    className="cursor-pointer h-12 w-32 md:h-16 md:w-36"
                 />
             </div>
             <div>
