@@ -5,6 +5,8 @@ import Tarifs from "@/components/Tarifs/Tarifs";
 import WhyUs from "@/components/WhyUs/WhyUs";
 import Works from "@/components/Works/Works";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 
 export default function Home() {
@@ -17,6 +19,7 @@ export default function Home() {
       <Contacts />
       <Footer />
       <Analytics />
+      <SpeedInsights />
    </div>
   );
 }
