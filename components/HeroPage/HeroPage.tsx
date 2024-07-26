@@ -56,7 +56,9 @@ export default function HeroPage() {
                         animate="show"
                         exit="hidden"
                         className="mt-4 sm:mt-8 flex gap-4 sm:gap-8 justify-normal flex-col md:flex-row">
-                        <a href="#whyUs" className="flex gap-2  items-center text-md sm:text-xl rounded-[41px] border-[1.5px] border-[#2EECC5] px-4 sm:px-8 py-2 sm:py-4 w-fit text-center bg-[#2EECC5]/10 hover:bg-[#2EECC5]/25 cursor-pointer transition-all duration-300 hover:shadow-shadowInput">
+                        <a
+                            href="#whyUs"
+                            className="flex gap-2  items-center text-md sm:text-xl rounded-[41px] border-[1.5px] border-[#2EECC5] px-4 sm:px-8 py-2 sm:py-4 w-fit text-center bg-[#2EECC5]/10 hover:bg-[#2EECC5]/25 cursor-pointer transition-all duration-300 hover:shadow-shadowInput">
                             Детальніше <Icon icon="iconamoon:arrow-right-2" />
                         </a>
 
@@ -70,7 +72,9 @@ export default function HeroPage() {
                                 <ModalContent>
                                     <div className="text-2xl">Залишились питання?</div>
 
-                                    <div className="mt-4 text-white/80 text-md">Заповни коротеньку форму і наш менеджер звʼяжеться з вами найближчим часом</div>
+                                    <div className="mt-4 text-white/80 text-md">
+                                        Заповни коротеньку форму і наш менеджер звʼяжеться з вами найближчим часом
+                                    </div>
 
                                     <div className="mt-8">
                                         <div className="relative w-full">

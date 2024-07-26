@@ -57,7 +57,7 @@ export default function Works() {
             id: 6,
             image: "/projects/training.png",
             title: "Дизайн буклету спортзалу",
-            descr: "Дизайн буклету для компанії яка проводить тренування",
+            descr: "Дизайн буклету для компанії, яка проводить тренування",
             type: "#Design",
             technologiesIcons: ["devicon:figma"],
             hoverText: "Розробка коштувала 2 000 грн"
