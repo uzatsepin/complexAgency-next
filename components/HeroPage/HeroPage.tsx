@@ -39,7 +39,7 @@ export default function HeroPage() {
             id="hero"
             className="flex flex-col bg-center bg-no-repeat bg-cover bg-opacity-4 bg-blend-luminosity"
             style={{ backgroundImage: "url('/wave-whyUs.svg')", backgroundColor: "rgba(24, 11, 28, 0.04)" }}>
-            <div className="container mx-auto pt-6 h-screen px-2 sm:px-0">
+            <div className="container mx-auto pt-6 h-screen px-4 md:px-6">
                 <Header />
 
                 <div className="flex flex-col gap-4 px-4 md:px-0 sm:gap-6 max-w-full md:max-w-[672px] mt-20 sm:mt-36 md:mt-64">

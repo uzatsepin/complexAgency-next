@@ -17,7 +17,7 @@ export default function Contacts() {
 
     return (
         <div className="bg-bgFooter">
-            <div className="container mx-auto py-10 px-4 sm:px-0 relative">
+            <div className="container mx-auto py-10 px-4 md:px-6 relative">
                 <div>
                     <TypewriterEffect words={title} className="md:left-left"/>
                 </div>
