@@ -1,2 +1,2 @@
 import PocketBase from 'pocketbase'
-export const pb = new PocketBase('https://pb.razdev.website');
+export const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);

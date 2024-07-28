@@ -8,14 +8,14 @@ import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
 import PortfolioCard from "@/components/Works/PortfolioCard/PortfolioCard";
-import { Modal, ModalBody, ModalContent, ModalProvider, ModalTrigger, useModal } from "@/components/ui/animated-modal";
+import { Modal, ModalBody, ModalContent, ModalTrigger, useModal } from "@/components/ui/animated-modal";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import MultiSelect from "@/components/Others/MultiSelect";
 import { Toaster, toast } from "sonner";
 
 const AdminPage = () => {
-    const { setOpen } = useModal();
+    // const { setOpen } = useModal();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [image, setImage] = useState("");
@@ -26,6 +26,7 @@ const AdminPage = () => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [hoverText, setHoverText] = useState("");
     const [isSendLoading, setIsSendLoading] = useState(false);
+    const [portfolioItems, setPortfolioItems] = useState([])
 
     const options = [
         { value: "devicon:figma", label: "Figma" },
@@ -58,10 +59,9 @@ const AdminPage = () => {
             setTechnologiesIcons([]);
             setHoverText("");
             setSelectedOptions([]);
-            setOpen(false);
         } catch (e) {
             console.log(e);
-            toast.error("Ошибка при добавлении работы");
+            toast.error("Ошибка при добавлении работы" + e);
         } finally {
             setIsSendLoading(false);
         }
@@ -152,9 +152,12 @@ const AdminPage = () => {
             const isAuthenticated = pb.authStore.isValid;
             if (!isAuthenticated) {
                 router.push("/login");
+                return
             }
             setLoading(false);
         };
+
+       
 
         checkAuth();
     }, [router]);
@@ -206,140 +209,138 @@ const AdminPage = () => {
                             На данный момент добавлено <span>4</span> работы портфолио
                         </p>
                     </div>
-                    <ModalProvider>
-                        <div>
-                            <Modal>
-                                <ModalTrigger className="p-0">
-                                    <div className="flex gap-2 w-full text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white">
-                                        <Icon icon="ph:plus-bold" />
-                                        Додати роботу
-                                    </div>
-                                </ModalTrigger>
-                                <ModalBody className="bg-zinc-900 pb-12">
-                                    <ModalContent>
-                                        <div className="text-2xl">Додати портфоліо</div>
+                    <div>
+                        <Modal>
+                            <ModalTrigger className="p-0">
+                                <div className="flex gap-2 w-full text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white">
+                                    <Icon icon="ph:plus-bold" />
+                                    Додати роботу
+                                </div>
+                            </ModalTrigger>
+                            <ModalBody className="bg-zinc-900 pb-12">
+                                <ModalContent>
+                                    <div className="text-2xl">Додати портфоліо</div>
 
-                                        <div className="mt-8">
+                                    <div className="mt-8">
+                                        <div className="relative w-full">
+                                            <label
+                                                htmlFor="name"
+                                                className="flex mb-2 gap-2 items-center"
+                                                data-tooltip-id="image"
+                                                data-tooltip-content="Тільки посилання. Наприклад з https://uk.imgbb.com/"
+                                                data-tooltip-place="right-start">
+                                                <Icon icon="material-symbols:info" />
+                                                Зображення
+                                            </label>
+                                            <Tooltip id="image" />
+                                            <input
+                                                id="name"
+                                                type="text"
+                                                className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                                placeholder="https://i.ibb.co/Hz3Z38H/sprintech.png"
+                                                value={image}
+                                                onChange={(e) => setImage(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <div className="relative w-full">
+                                                <label
+                                                    htmlFor="contact"
+                                                    className="block mb-2">
+                                                    Назва
+                                                </label>
+                                                <input
+                                                    id="contact"
+                                                    type="text"
+                                                    className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                                    placeholder="Розробка сайту Catford..."
+                                                    value={title}
+                                                    onChange={(e) => setTitle(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="mt-2">
+                                            <div className="relative w-full">
+                                                <label
+                                                    htmlFor="contact"
+                                                    className="block mb-2">
+                                                    Опис
+                                                </label>
+                                                <input
+                                                    id="contact"
+                                                    type="text"
+                                                    className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                                    placeholder="Розробка сайту за готовим макетом..."
+                                                    value={descr}
+                                                    onChange={(e) => setDescr(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="mt-2">
                                             <div className="relative w-full">
                                                 <label
                                                     htmlFor="name"
                                                     className="flex mb-2 gap-2 items-center"
                                                     data-tooltip-id="image"
-                                                    data-tooltip-content="Тільки посилання. Наприклад з https://uk.imgbb.com/"
+                                                    data-tooltip-content="#design, #develop, любой тип через #"
                                                     data-tooltip-place="right-start">
                                                     <Icon icon="material-symbols:info" />
-                                                    Зображення
+                                                    Тип роботи
                                                 </label>
                                                 <Tooltip id="image" />
                                                 <input
                                                     id="name"
                                                     type="text"
                                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                                    placeholder="https://i.ibb.co/Hz3Z38H/sprintech.png"
-                                                    value={image}
-                                                    onChange={(e) => setImage(e.target.value)}
+                                                    placeholder="#design"
+                                                    value={type}
+                                                    onChange={(e) => setType(e.target.value)}
                                                 />
-                                            </div>
-
-                                            <div className="mt-2">
-                                                <div className="relative w-full">
-                                                    <label
-                                                        htmlFor="contact"
-                                                        className="block mb-2">
-                                                        Назва
-                                                    </label>
-                                                    <input
-                                                        id="contact"
-                                                        type="text"
-                                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                                        placeholder="Розробка сайту Catford..."
-                                                        value={title}
-                                                        onChange={(e) => setTitle(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="mt-2">
-                                                <div className="relative w-full">
-                                                    <label
-                                                        htmlFor="contact"
-                                                        className="block mb-2">
-                                                        Опис
-                                                    </label>
-                                                    <input
-                                                        id="contact"
-                                                        type="text"
-                                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                                        placeholder="Розробка сайту за готовим макетом..."
-                                                        value={descr}
-                                                        onChange={(e) => setDescr(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="mt-2">
-                                                <div className="relative w-full">
-                                                    <label
-                                                        htmlFor="name"
-                                                        className="flex mb-2 gap-2 items-center"
-                                                        data-tooltip-id="image"
-                                                        data-tooltip-content="#design, #develop, любой тип через #"
-                                                        data-tooltip-place="right-start">
-                                                        <Icon icon="material-symbols:info" />
-                                                        Тип роботи
-                                                    </label>
-                                                    <Tooltip id="image" />
-                                                    <input
-                                                        id="name"
-                                                        type="text"
-                                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                                        placeholder="#design"
-                                                        value={type}
-                                                        onChange={(e) => setType(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-2">
-                                                <div className="relative w-full">
-                                                    <label
-                                                        htmlFor="contact"
-                                                        className="block mb-2">
-                                                        Текст при наведенні
-                                                    </label>
-                                                    <input
-                                                        id="contact"
-                                                        type="text"
-                                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                                        placeholder="Розробка коштувала 12 000 грн."
-                                                        value={hoverText}
-                                                        onChange={(e) => setHoverText(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4">
-                                                <label className="block mb-2">Обери технології</label>
-                                                <MultiSelect
-                                                    options={options}
-                                                    selectedOptions={selectedOptions}
-                                                    onChange={setSelectedOptions}
-                                                    placeholder="Обери технології (можна декілька)"
-                                                />
-                                            </div>
-
-                                            <div className="mt-8 flex justify-center">
-                                                <div
-                                                    className="flex gap-2 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white"
-                                                    onClick={sendPortfolioItem}>
-                                                    <Icon icon="ph:plus-bold" />
-                                                    Додати роботу
-                                                </div>
                                             </div>
                                         </div>
-                                    </ModalContent>
-                                </ModalBody>
-                            </Modal>
-                        </div>
-                    </ModalProvider>
+
+                                        <div className="mt-2">
+                                            <div className="relative w-full">
+                                                <label
+                                                    htmlFor="contact"
+                                                    className="block mb-2">
+                                                    Текст при наведенні
+                                                </label>
+                                                <input
+                                                    id="contact"
+                                                    type="text"
+                                                    className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                                    placeholder="Розробка коштувала 12 000 грн."
+                                                    value={hoverText}
+                                                    onChange={(e) => setHoverText(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-4">
+                                            <label className="block mb-2">Обери технології</label>
+                                            <MultiSelect
+                                                options={options}
+                                                selectedOptions={selectedOptions}
+                                                onChange={setSelectedOptions}
+                                                placeholder="Обери технології (можна декілька)"
+                                            />
+                                        </div>
+
+                                        <div className="mt-8 flex justify-center">
+                                            <div
+                                                className="flex gap-2 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white"
+                                                onClick={sendPortfolioItem}>
+                                                <Icon icon="ph:plus-bold" />
+                                                Додати роботу
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ModalContent>
+                            </ModalBody>
+                        </Modal>
+                    </div>
                 </div>
 
                 <div className="mt-10">
