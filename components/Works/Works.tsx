@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PortfolioCard from "./PortfolioCard/PortfolioCard";
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { AnimatePresence, motion } from "framer-motion";
@@ -117,14 +117,14 @@ const title = [
 
 const Works: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>("#");
-    const tabs = getUniqueTypes(portfolio);
-
+    const tabs = useMemo(() => getUniqueTypes(portfolio), [portfolio]);
+    
     const filteredPortfolio = activeTab === "#" ? portfolio : portfolio.filter((item) => item.type === activeTab);
 
     const [dimensions, setDimensions] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-    useEffect(() => {
+    const updateDimensions = useCallback(() => {
         if (tabRefs.current) {
             const activeTabElement = tabRefs.current[tabs.indexOf(activeTab)];
             if (activeTabElement) {
@@ -135,6 +135,10 @@ const Works: React.FC = () => {
             }
         }
     }, [activeTab, tabs]);
+
+    useEffect(() => {
+        updateDimensions();
+    }, [updateDimensions]);
 
     const containerVariants = {
         hidden: { opacity: 0 },

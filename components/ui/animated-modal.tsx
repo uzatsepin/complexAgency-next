@@ -29,6 +29,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
 export const useModal = () => {
   const context = useContext(ModalContext);
+  console.log(context);
+  
   if (!context) {
     throw new Error("useModal must be used within a ModalProvider");
   }
