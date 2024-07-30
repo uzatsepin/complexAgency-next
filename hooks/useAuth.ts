@@ -9,7 +9,6 @@ export const useAuth = () => {
     const checkAuth = async () => {
       try {
         const authData = await pb.authStore.isValid;
-        console.log(authData);
         
         setIsAuthenticated(!!authData);
       } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Icon } from '@iconify/react';
 
 interface Option {
@@ -15,6 +15,7 @@ interface MultiSelectProps {
 
 const MultiSelect: React.FC<MultiSelectProps> = ({ options, selectedOptions, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
     if (selectedOptions.includes(value)) {
@@ -24,8 +25,21 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ options, selectedOptions, onC
     }
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" ref={containerRef}>
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="block appearance-none w-full bg-zinc-800 border border-[#ffffff]/20 py-4 px-6 pr-8 rounded-full leading-tight focus:outline-none focus:shadow-outline cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border-[#2CEEC2] focus:shadow-shadowInput"
@@ -46,7 +60,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ options, selectedOptions, onC
         </div>
       </div>
       {isOpen && (
-        <div className="absolute z-30 mt-1 w-full bg-zinc-800 border border-[#ffffff]/20 rounded-xl shadow-lg py-2 max-h-32 overflow-auto">
+        <div className="absolute z-30 mt-1 w-full bg-zinc-800 border border-[#ffffff]/20 rounded-xl shadow-lg py-2 max-h-60 overflow-auto">
           {options.map(option => (
             <div
               key={option.value}
