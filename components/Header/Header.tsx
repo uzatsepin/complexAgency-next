@@ -26,7 +26,6 @@ export default function Header() {
     ];
 
     const clickedMakeOrder = () => {
-        console.log(12321)
         posthog.capture('clickedMakeOrder', { property: 'makeOrder' })
     }
 
