@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "../ui/moving-border";
 import { Modal, ModalBody, ModalContent, ModalTrigger } from "../ui/animated-modal";
+import posthog from "posthog-js";
 
 export default function Header() {
     const links = [
@@ -23,6 +24,11 @@ export default function Header() {
             icon: "lucide:phone-call"
         }
     ];
+
+    const clickedMakeOrder = () => {
+        console.log(12321)
+        posthog.capture('clickedMakeOrder', { property: 'makeOrder' })
+    }
 
     return (
         <div className="flex items-center justify-between px-2 md:px-0">
@@ -55,7 +61,7 @@ export default function Header() {
                     <ModalTrigger>
                         <Button
                             borderRadius="9999px"
-                            className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
+                            className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold" onClick={() => clickedMakeOrder()}>
                             Замовити
                         </Button>
                     </ModalTrigger>

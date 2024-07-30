@@ -9,6 +9,7 @@ import { TypewriterEffect } from "../ui/typewriter-effect";
 import { Icon } from "@iconify/react";
 import { Modal, ModalBody, ModalContent, ModalTrigger } from "../ui/animated-modal";
 import { Button } from "../ui/moving-border";
+import posthog from "posthog-js";
 
 export default function HeroPage() {
     const title = [
@@ -33,6 +34,10 @@ export default function HeroPage() {
             className: "text-[#2CE8C2]"
         }
     ];
+
+    const clickedButton = () => {
+        posthog.capture('clickedLeftQuestions', { property: 'leftQuestions' })
+    }
 
     return (
         <div
@@ -64,7 +69,7 @@ export default function HeroPage() {
 
                         <Modal>
                             <ModalTrigger className="p-0">
-                                <p className="text-md sm:text-xl text-[#ffffff]/65 hover:text-[#FFFFFF]/90 cursor-pointer transition-all duration-300 text-left">
+                                <p className="text-md sm:text-xl text-[#ffffff]/65 hover:text-[#FFFFFF]/90 cursor-pointer transition-all duration-300 text-left" onClick={() => clickedButton()}>
                                     Залишились запитання?
                                 </p>
                             </ModalTrigger>
