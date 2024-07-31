@@ -33,18 +33,36 @@ const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => 
                         onClick={handleOverlayClick}
                         className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="bg-zinc-800 rounded-lg shadow-md p-6 max-w-lg w-full mx-4 relative"
+                            initial={{
+                                opacity: 0,
+                                scale: 0.5,
+                                rotateX: 40,
+                                y: 40,
+                            }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                rotateX: 0,
+                                y: 0,
+                            }}
+                            exit={{
+                                opacity: 0,
+                                scale: 0.8,
+                                rotateX: 10,
+                            }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 15,
+                            }}
+                            className="bg-zinc-900 rounded-lg shadow-md p-7 max-w-lg w-full mx-4 relative"
                             onClick={(e) => e.stopPropagation()}>
                             <div
                                 className="absolute top-6 right-6"
                                 onClick={onClose}>
                                 <Icon
                                     icon="mingcute:close-fill"
-                                    className="w-6 h-6 bg-slate-300 rounded-full p-1 text-zinc-800 cursor-pointer duration-300 transition-all hover:bg-slate-500"
+                                    className="w-7 h-7  rounded-full p-1 text-zinc-600 hover:text-zinc-100 cursor-pointer duration-300 transition-all"
                                 />
                             </div>
                             {children}

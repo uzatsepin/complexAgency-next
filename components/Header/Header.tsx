@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import { Button } from "../ui/moving-border";
-import { Modal, ModalBody, ModalContent, ModalTrigger } from "../ui/animated-modal";
-import posthog from "posthog-js";
+import {pb} from "@/pb";
+import {toast, Toaster} from "sonner";
+import CustomModal from "@/components/Others/CustomModal";
 
 export default function Header() {
     const links = [
@@ -25,8 +26,31 @@ export default function Header() {
         }
     ];
 
-    const clickedMakeOrder = () => {
-        posthog.capture('clickedMakeOrder', { property: 'makeOrder' })
+    const [isOpen, setIsOpen] = useState(false);
+    const [name, setName] = useState('');
+    const [contact, setContact] = useState('');
+
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const sendRequest = async () => {
+        try {
+            const response = await pb.collection('fastRequest').create({
+                name,
+                contact,
+                from: 'header',
+                status: 'new'
+            })
+            setName('')
+            setContact('')
+            setIsOpen(false);
+            toast.success('Запит успішно відправлено')
+        } catch (e) {
+            console.log(e)
+            toast.error('Помилка при відправці запиту')
+        }
     }
 
     return (
@@ -56,65 +80,64 @@ export default function Header() {
                 </ul>
             </div>
             <div>
-                <Modal>
-                    <ModalTrigger>
-                        <Button
-                            borderRadius="9999px"
-                            className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold" onClick={() => clickedMakeOrder()}>
-                            Замовити
-                        </Button>
-                    </ModalTrigger>
-                    <ModalBody className="bg-zinc-900">
-                        <ModalContent>
-                            <div className="text-2xl">Залишити заявку?</div>
+                <Button
+                    borderRadius="9999px"
+                    className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold" onClick={() => setIsOpen(true)}>
+                    Замовити
+                </Button>
+                <CustomModal isOpen={isOpen} onClose={closeModal}>
+                    <div className="text-2xl">Залишити заявку?</div>
+                    <div className="mt-8">
+                        <div className="relative w-full">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2">
+                                Ваше ім&apos;я
+                            </label>
+                            <input
+                                id="name"
+                                type="text"
+                                className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                placeholder="Ваше ім'я"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
 
-                            <div className="mt-8">
-                                <div className="relative w-full">
-                                    <label
-                                        htmlFor="name"
-                                        className="block mb-2">
-                                        Ваше ім&apos;я
-                                    </label>
-                                    <input
-                                        id="name"
-                                        type="text"
-                                        className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                        placeholder="Ваше ім'я"
-                                    />
-                                </div>
-
-                                <div className="mt-4">
-                                    <div className="relative w-full">
-                                        <label
-                                            htmlFor="contact"
-                                            className="block mb-2">
-                                            Пошта\Telegram
-                                        </label>
-                                        <input
-                                            id="contact"
-                                            type="text"
-                                            className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
-                                            placeholder="@username\user@gmail.com"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="mt-8 flex justify-center">
-                                    <Button
-                                        borderRadius="9999px"
-                                        className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
-                                        Надіслати
-                                    </Button>
-                                </div>
-                                <div className="mt-4 text-center text-xs text-white/80">
-                                    Менеджер звʼяжеться з вами якомога швидше.
-                                    <span>Всі права захищено.</span>
-                                </div>
+                        <div className="mt-4">
+                            <div className="relative w-full">
+                                <label
+                                    htmlFor="contact"
+                                    className="block mb-2">
+                                    Пошта\Telegram
+                                </label>
+                                <input
+                                    id="contact"
+                                    type="text"
+                                    className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                    placeholder="@username\user@gmail.com"
+                                    value={contact}
+                                    onChange={(e) => setContact(e.target.value)}
+                                />
                             </div>
-                        </ModalContent>
-                    </ModalBody>
-                </Modal>
+                        </div>
+
+                        <div className="mt-8 flex justify-center">
+                            <Button
+                                borderRadius="9999px"
+                                className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold cursor-pointer"
+                                onClick={() => sendRequest()}>
+                                Надіслати
+                            </Button>
+                        </div>
+                        <div className="mt-4 text-center text-xs text-white/80">
+                            Менеджер звʼяжеться з вами якомога швидше.
+                            <span>Всі права захищено.</span>
+                        </div>
+                    </div>
+                </CustomModal>
             </div>
+
         </div>
     );
 }
