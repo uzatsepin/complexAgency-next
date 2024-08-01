@@ -165,7 +165,7 @@ export default function HeroPage() {
                     <div
                         className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[670px] xl:max-h-[709px] absolute bottom-0 right-0 ">
                         <Image
-                            src={"/main-person.png"}
+                            src={"/requests-person.png"}
                             width={670}
                             height={709}
                             alt=""

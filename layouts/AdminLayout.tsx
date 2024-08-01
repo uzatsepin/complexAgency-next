@@ -12,7 +12,7 @@ const AdminLayout = ({children}: AdminLayoutProps) => {
 
     return (
         <div className="min-h-screen h-full flex">
-            <div className="bg-zinc-900 shadow-2xl w-[300px] py-6">
+            <div className="bg-zinc-900 shadow-xl w-[300px] py-6">
                 <div className="flex items-center justify-center">
                     <Image
                         src="/logo.svg"
