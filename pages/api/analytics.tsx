@@ -3,12 +3,12 @@ import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import googleData from '../../complex-google.json';
 
 // ? Задаём PropertyId
-const propertyId = googleData.property_id;
+const propertyId = process.env.NEXT_PUBLIC_PROPERTY_ID;
 
 const analyticsDataClient = new BetaAnalyticsDataClient({
   credentials: {
-    client_email: googleData.client_email,
-    private_key: googleData.private_key.replace(/\n/gm, "\n"), // очищаем от лишних символов
+    client_email: process.env.NEXT_PUBLIC_CLIENT_EMAIL,
+    private_key: process.env.NEXT_PUBLIC_PRIVATE_KEY?.replace(/\n/gm, "\n"), // очищаем от лишних символов
   },
 });
 
