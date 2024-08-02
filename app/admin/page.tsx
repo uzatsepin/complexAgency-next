@@ -3,7 +3,7 @@
 import React from "react";
 import Counter from "@/components/animata/text/counter";
 import {Icon} from "@iconify/react";
-import { KanbanBoard } from "@/components/KanbanBoard/KanbanBoard";
+import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 
 export default function AdminPage() {
     return (

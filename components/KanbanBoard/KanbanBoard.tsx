@@ -4,7 +4,34 @@ import { Icon } from "@iconify/react";
 import { pb } from "@/pb";
 import dayjs from "dayjs";
 
-export const KanbanBoard = () => {
+export interface IFastRequest {
+  id: string;
+  title: string;
+  contact: string;
+  from: string;
+  created: string;
+  updated: string;
+  column: string;
+}
+
+interface ColumnProps {
+  title: string;
+  headingColor: string;
+  cards: IFastRequest[];
+  column: string;
+  setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>>;
+}
+
+interface CardProps {
+  title: string;
+  id: string;
+  column: string;
+  contact: string;
+  created: string;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, card: IFastRequest) => void;
+}
+
+const KanbanBoard: React.FC = () => {
   return (
     <div className="h-screen w-full bg-neutral-900 text-neutral-50">
       <Board />
@@ -12,23 +39,23 @@ export const KanbanBoard = () => {
   );
 };
 
-const Board = () => {
-  const [cards, setCards] = useState([]);
+const Board: React.FC = () => {
+  const [cards, setCards] = useState<IFastRequest[]>([]);
 
   const fetchRequest = async () => {
     try {
-        const requests = await pb.collection("fastRequest").getFullList({
-            sort: "-created",
-        });
-        setCards(requests);
+      const requests = await pb.collection("fastRequest").getFullList<IFastRequest>({
+        sort: "-created",
+      });
+      setCards(requests);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchRequest()
-  }, [])
+    fetchRequest();
+  }, []);
 
   return (
     <div className="grid grid-cols-5 w-full gap-6 overflow-scroll p-12">
@@ -65,14 +92,14 @@ const Board = () => {
   );
 };
 
-const Column = ({ title, headingColor, cards, column, setCards }) => {
+const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, setCards }) => {
   const [active, setActive] = useState(false);
 
-  const handleDragStart = (e, card) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, card: IFastRequest) => {
     e.dataTransfer.setData("cardId", card.id);
   };
 
-  const handleDragEnd = (e) => {
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     const cardId = e.dataTransfer.getData("cardId");
 
     setActive(false);
@@ -81,7 +108,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     const indicators = getIndicators();
     const { element } = getNearestIndicator(e, indicators);
 
-    const before = element.dataset.before || "-1";
+    const before = element?.dataset.before || "-1";
 
     if (before !== cardId) {
       let copy = [...cards];
@@ -98,51 +125,46 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
         copy.push(cardToTransfer);
       } else {
         const insertAtIndex = copy.findIndex((el) => el.id === before);
-        if (insertAtIndex === undefined) return;
+        if (insertAtIndex === -1) return;
 
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
 
       setCards(copy);
 
-      pb.collection("fastRequest").update(cardId, {column})
+      pb.collection("fastRequest").update(cardId, { column });
     }
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     highlightIndicator(e);
-
     setActive(true);
   };
 
-  const clearHighlights = (els) => {
+  const clearHighlights = (els?: HTMLElement[]) => {
     const indicators = els || getIndicators();
-
     indicators.forEach((i) => {
       i.style.opacity = "0";
     });
   };
 
-  const highlightIndicator = (e) => {
+  const highlightIndicator = (e: React.DragEvent<HTMLDivElement>) => {
     const indicators = getIndicators();
-
     clearHighlights(indicators);
-
     const el = getNearestIndicator(e, indicators);
-
-    el.element.style.opacity = "1";
+    if (el.element) {
+      el.element.style.opacity = "1";
+    }
   };
 
-  const getNearestIndicator = (e, indicators) => {
+  const getNearestIndicator = (e: React.DragEvent<HTMLDivElement>, indicators: HTMLElement[]) => {
     const DISTANCE_OFFSET = 50;
 
     const el = indicators.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-
         const offset = e.clientY - (box.top + DISTANCE_OFFSET);
-
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child };
         } else {
@@ -158,7 +180,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     return el;
   };
 
-  const getIndicators = () => {
+  const getIndicators = (): HTMLElement[] => {
     return Array.from(document.querySelectorAll(`[data-column="${column}"]`));
   };
 
@@ -172,7 +194,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
   return (
     <div className="w-full shrink-0">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className={`font-medium ${headingColor} `}>{title}</h3>
+        <h3 className={`font-medium ${headingColor}`}>{title}</h3>
         <span className="rounded text-sm text-neutral-400">
           {filteredCards.length}
         </span>
@@ -185,9 +207,9 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
           active ? "bg-neutral-800/50" : "bg-neutral-800/0"
         }`}
       >
-        {filteredCards.map((c) => {
-          return <Card key={c.id} {...c} handleDragStart={handleDragStart} />;
-        })}
+        {filteredCards.map((c) => (
+          <Card key={c.id} {...c} handleDragStart={handleDragStart} />
+        ))}
         <DropIndicator beforeId={null} column={column} />
         {/* <AddCard column={column} setCards={setCards} /> */}
       </div>
@@ -195,26 +217,35 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
   );
 };
 
-const Card = ({ title, id, column, handleDragStart, contact, created }) => {
+const Card: React.FC<CardProps> = ({ title, id, column, handleDragStart, contact, created }) => {
+  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    handleDragStart(e, { title, id, column, contact, created, from: '', updated: '' });
+  };
+
   return (
     <>
       <DropIndicator beforeId={id} column={column} />
-      <motion.div
-        layout
-        layoutId={id}
-        draggable="true"
-        onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
-      >
-        <p className="text-sm text-neutral-100"><span className="mt-0.5 text-neutral-300">Імʼя:</span> {title}</p>
-        <p className="text-sm text-neutral-100"><span className="mt-0.5 text-neutral-300">Контакт:</span> {contact}</p>
-        <p className="text-sm text-neutral-500 flex justify-end mt-2">{dayjs(created).format("DD.MM.YYYY HH:mm")}</p>
+      <motion.div layout layoutId={id} className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
+        <div
+          draggable="true"
+          onDragStart={onDragStart}
+        >
+          <p className="text-sm text-neutral-100">
+            <span className="mt-0.5 text-neutral-300">Імʼя:</span> {title}
+          </p>
+          <p className="text-sm text-neutral-100">
+            <span className="mt-0.5 text-neutral-300">Контакт:</span> {contact}
+          </p>
+          <p className="text-sm text-neutral-500 flex justify-end mt-2">
+            {dayjs(created).format("DD.MM.YYYY HH:mm")}
+          </p>
+        </div>
       </motion.div>
     </>
   );
 };
 
-const DropIndicator = ({ beforeId, column }) => {
+const DropIndicator: React.FC<{ beforeId?: string | null; column: string }> = ({ beforeId, column }) => {
   return (
     <div
       data-before={beforeId || "-1"}
@@ -224,10 +255,10 @@ const DropIndicator = ({ beforeId, column }) => {
   );
 };
 
-const BurnBarrel = ({ setCards }) => {
+const BurnBarrel: React.FC<{ setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({ setCards }) => {
   const [active, setActive] = useState(false);
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setActive(true);
   };
@@ -236,20 +267,16 @@ const BurnBarrel = ({ setCards }) => {
     setActive(false);
   };
 
-  const handleDragEnd = (e) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     const cardId = e.dataTransfer.getData("cardId");
-
-    setCards((pv) => pv.filter((c) => c.id !== cardId));
-
+    setCards((prev) => prev.filter((c) => c.id !== cardId));
     setActive(false);
-
-    pb.collection('fastRequest').delete(cardId)
-    
+    pb.collection('fastRequest').delete(cardId);
   };
 
   return (
     <div
-      onDrop={handleDragEnd}
+      onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
@@ -263,23 +290,25 @@ const BurnBarrel = ({ setCards }) => {
   );
 };
 
-const AddCard = ({ column, setCards }) => {
+const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({ column, setCards }) => {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!text.trim().length) return;
 
-    const newCard = {
+    const newCard: IFastRequest = {
       column,
       title: text.trim(),
       id: Math.random().toString(),
+      contact: '',
+      from: '',
+      created: new Date().toISOString(),
+      updated: new Date().toISOString(),
     };
 
-    setCards((pv) => [...pv, newCard]);
-
+    setCards((prev) => [...prev, newCard]);
     setAdding(false);
   };
 
@@ -322,3 +351,5 @@ const AddCard = ({ column, setCards }) => {
     </>
   );
 };
+
+export default KanbanBoard;
