@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import {CSPostHogProvider} from "@/app/providers";
+import { CSPostHogProvider } from "@/app/providers";
 import Script from "next/script";
-
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,22 +43,22 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ua">
-        <head>
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-P90MTDEBYS"></Script>
-            <Script id='google-analytics'>
-                {
-                    `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-P90MTDEBYS');`
-                }
-            </Script>
-
-        </head>
-        <CSPostHogProvider>
-            <body className={inter.className}>{children}</body>
-        </CSPostHogProvider>
+            <head>
+                <Script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-SH376BTP0W"></Script>
+                <Script id="google-analytics">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-SH376BTP0W');
+                    `}
+                </Script>
+            </head>
+            <CSPostHogProvider>
+                <body className={inter.className}>{children}</body>
+            </CSPostHogProvider>
         </html>
     );
 }
