@@ -37,13 +37,41 @@ export default async function handler(
         name: "newUsers"
       },
       {
-        name: "totalRevenue"
+        name: 'averageSessionDuration'
+      },
+      {
+        name: 'eventCount'
+      },
+      {
+        name: 'userEngagementDuration'
       }
     ],
   });
 
+  let totalVisitors = 0;
+  let newUsers = 0;
+  let averageSessionDuration = 0;
+  let eventCount = 0;
+  let userEngagementDuration = 0;
+
+  response.rows?.forEach((row: any) => {
+    totalVisitors += parseInt(row.metricValues[0].value);
+    newUsers += parseInt(row.metricValues[1].value);
+    averageSessionDuration += parseInt(row.metricValues[2].value);
+    eventCount += parseInt(row.metricValues[3].value);
+    userEngagementDuration += parseInt(row.metricValues[4].value);
+  });
+
+  const avgSessionDurationPerVisitor = averageSessionDuration / totalVisitors;
+  const minutesSession = Math.floor(avgSessionDurationPerVisitor / 60);
+  const secondsSession = Math.floor(avgSessionDurationPerVisitor % 60);
+
+
   // Возвращаем ответ
   return res.status(200).json({
-    response,
+    totalVisitors,
+    newUsers,
+    averageSessionDuration: `${minutesSession}m ${secondsSession}s`,
+    eventCount,
   });
 }
