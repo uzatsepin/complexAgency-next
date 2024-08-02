@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
-import googleData from '../../complex-google.json';
 
 // ? Задаём PropertyId
 const propertyId = process.env.NEXT_PUBLIC_PROPERTY_ID;
