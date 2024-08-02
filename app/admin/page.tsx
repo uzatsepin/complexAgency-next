@@ -3,6 +3,7 @@
 import React from "react";
 import Counter from "@/components/animata/text/counter";
 import {Icon} from "@iconify/react";
+import { KanbanBoard } from "@/components/KanbanBoard/KanbanBoard";
 
 export default function AdminPage() {
     return (
@@ -74,6 +75,11 @@ export default function AdminPage() {
                     </div>
                     <p className={'text-white/70 text-center mt-4 text-sm'}>заявки оформлені через сайт</p>
                 </div>
+            </div>
+
+            <div className="mt-8 w-full">
+                <h1 className="text-3xl font-bold">Активні заявки з сайту</h1>
+                <KanbanBoard />
             </div>
         </div>
     )

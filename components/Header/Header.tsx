@@ -38,10 +38,10 @@ export default function Header() {
     const sendRequest = async () => {
         try {
             const response = await pb.collection('fastRequest').create({
-                name,
+                title: name,
                 contact,
-                from: 'header',
-                status: 'new'
+                from: 'heroPage',
+                column: 'new'
             })
             setName('')
             setContact('')

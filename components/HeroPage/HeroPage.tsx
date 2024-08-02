@@ -48,10 +48,10 @@ export default function HeroPage() {
     const sendRequest = async () => {
         try {
             const response = await pb.collection('fastRequest').create({
-                name,
+                title: name,
                 contact,
                 from: 'heroPage',
-                status: 'new'
+                column: 'new'
             })
             setName('')
             setContact('')
@@ -69,7 +69,7 @@ export default function HeroPage() {
             id="hero"
             className="flex flex-col bg-center bg-no-repeat bg-cover bg-opacity-4 bg-blend-luminosity"
             style={{backgroundImage: "url('/wave-whyUs.svg')", backgroundColor: "rgba(24, 11, 28, 0.04)"}}>
-            <div className="container mx-auto pt-6 h-screen px-4 md:px-6">
+            <div className="container mx-auto pt-6 h-screen px-4 md:px-6 relative">
                 <Header/>
 
                 <div
@@ -154,9 +154,7 @@ export default function HeroPage() {
                         </CustomModal>
 
                     </motion.div>
-                </div>
-
-                <motion.div
+                    <motion.div
                     variants={fadeIn("top", 0.2)}
                     initial="hidden"
                     animate="show"
@@ -165,7 +163,7 @@ export default function HeroPage() {
                     <div
                         className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[670px] xl:max-h-[709px] absolute bottom-0 right-0 ">
                         <Image
-                            src={"/requests-person.png"}
+                            src={"/main-person.png"}
                             width={670}
                             height={709}
                             alt=""
@@ -173,6 +171,7 @@ export default function HeroPage() {
                         />
                     </div>
                 </motion.div>
+                </div>
                 <div className="absolute bottom-0 left-0 h-1 bg-border-bottom w-[100%]"></div>
             </div>
             <Toaster position='top-right'/>
