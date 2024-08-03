@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 
-const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: React.ReactNode }) => {
+const Modal = ({ isOpen, onClose, children, header }: { isOpen: boolean; onClose: () => void; children: React.ReactNode, header?: string }) => {
     const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
@@ -57,13 +57,16 @@ const Modal = ({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => 
                             }}
                             className="bg-zinc-900 rounded-lg shadow-md p-7 max-w-lg w-full mx-4 relative"
                             onClick={(e) => e.stopPropagation()}>
-                            <div
-                                className="absolute top-6 right-6"
-                                onClick={onClose}>
-                                <Icon
-                                    icon="mingcute:close-fill"
-                                    className="w-7 h-7  rounded-full p-1 text-zinc-600 hover:text-zinc-100 cursor-pointer duration-300 transition-all"
-                                />
+                            <div className='mb-4'>
+                                <div
+                                    className="absolute top-6 right-6"
+                                    onClick={onClose}>
+                                    <Icon
+                                        icon="mingcute:close-fill"
+                                        className="w-7 h-7  rounded-full p-1 text-zinc-600 hover:text-zinc-100 cursor-pointer duration-300 transition-all"
+                                    />
+                                </div>
+                                <div className='text-2xl font-bold'>{header}</div>
                             </div>
                             {children}
                         </motion.div>

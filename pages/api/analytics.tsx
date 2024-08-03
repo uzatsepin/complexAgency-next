@@ -42,9 +42,6 @@ export default async function handler(
       {
         name: 'eventCount'
       },
-      {
-        name: 'userEngagementDuration'
-      }
     ],
   });
 
@@ -59,7 +56,6 @@ export default async function handler(
     newUsers += parseInt(row.metricValues[1].value);
     averageSessionDuration += parseInt(row.metricValues[2].value);
     eventCount += parseInt(row.metricValues[3].value);
-    userEngagementDuration += parseInt(row.metricValues[4].value);
   });
 
   const avgSessionDurationPerVisitor = averageSessionDuration / totalVisitors;
