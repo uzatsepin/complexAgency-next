@@ -19,7 +19,6 @@
     "js-cookie": "^3.0.5",
     "next": "14.2.5",
     "pocketbase": "^0.21.4",
-    "posthog-js": "^1.150.1",
     "react": "^18",
     "react-dom": "^18",
     "react-tooltip": "^5.27.1",

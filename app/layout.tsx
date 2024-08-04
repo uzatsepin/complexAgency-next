@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CSPostHogProvider } from "@/app/providers";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -55,9 +54,7 @@ export default function RootLayout({
                     `}
                 </Script>
             </head>
-            <CSPostHogProvider>
-                <body className={inter.className}>{children}</body>
-            </CSPostHogProvider>
+            <body className={inter.className}>{children}</body>
         </html>
     );
 }
