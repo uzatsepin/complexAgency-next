@@ -33,8 +33,6 @@ export default function AdminPage() {
         }
     }
 
-
-
     useEffect(() => {
         fetchAnalyticsData();
         fetchCards()
