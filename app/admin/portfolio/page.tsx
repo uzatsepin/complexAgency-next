@@ -278,7 +278,7 @@ const AdminPortfolio = () => {
 
             {portfolioItems.length > 0 ? (<div className="mt-10">
                 <h1 className="text-2xl font-bold">Додані роботи:</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 2xl:gap-8 mt-8">
                     {portfolioItems.map((item) => {
                         return (
                             <div key={item.id}>

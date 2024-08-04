@@ -5,8 +5,7 @@ import Counter from "@/components/animata/text/counter";
 import {Icon} from "@iconify/react";
 import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 import axios from "axios";
-import {pb} from "@/pb";
-import {IPortfolio} from "@/components/Works/Works";
+import {useRequestStore} from "@/store/useRequestStore";
 
 interface IAnalytics {
     totalVisitors: number,
@@ -18,6 +17,9 @@ interface IAnalytics {
 export default function AdminPage() {
 
     const [analytics, setAnalytics] = useState<IAnalytics>()
+    const {cards, fetchCards } = useRequestStore();
+
+    const cardsCount = cards.length > 0 ? Number(cards.length) : 0;
 
     const fetchAnalyticsData = async () => {
         try {
@@ -33,8 +35,10 @@ export default function AdminPage() {
     }
 
 
+
     useEffect(() => {
         fetchAnalyticsData();
+        fetchCards()
     }, [])
 
     return (
@@ -45,15 +49,15 @@ export default function AdminPage() {
                     Довідкова інформація про ресурс
                 </p>
             </div>
-            <div className={'grid grid-cols-5 mt-8 gap-6'}>
+            <div className={'grid grid-cols-3 2xl:grid-cols-5 mt-8 gap-6'}>
                 <div className={'p-4 border border-2 border-[#2EECC5] rounded-xl shadow-2xl'}>
                     <div className={'flex gap-8 items-center'}>
                         <div className={'p-3 bg-[#2EECC5]/20 rounded-full'}>
                             <Icon icon="ri:user-add-fill" className={'w-8 h-8 text-[#2EECC5]'}/>
                         </div>
                         <div>
-                            <Counter targetValue={21} className={'text-5xl'}/>
-                            <div className={'text-lg text-center text-white/70 font-bold'}>кількість заявок</div>
+                            <Counter targetValue={cardsCount} className={'text-3xl 2xl:text-5xl'}/>
+                            <div className={'text-sm text-nowrap 2xl:text-md text-white/70 font-bold'}>Кількість заявок</div>
                         </div>
                     </div>
                     <p className={'text-white/70 text-center mt-4 text-sm'}>заявки оформлені через сайт</p>
@@ -65,7 +69,7 @@ export default function AdminPage() {
                         </div>
                         <div>
                             <Counter targetValue={analytics?.totalVisitors ?? 0} className={'text-5xl'}/>
-                            <div className={'text-md text-white/70 font-bold'}>Переглядів сайту</div>
+                            <div className={'text-sm text-nowrap 2xl:text-md text-white/70 font-bold'}>Переглядів сайту</div>
                         </div>
                     </div>
                     <p className={'text-white/70 text-center mt-4 text-sm'}>Переглядів за останні 7 днів</p>
@@ -78,7 +82,7 @@ export default function AdminPage() {
                         </div>
                         <div>
                             <Counter targetValue={analytics?.newUsers ?? 0} className={'text-5xl'}/>
-                            <div className={'text-md text-white/70 font-bold'}>Нових користувачів</div>
+                            <div className={'text-sm text-nowrap 2xl:text-md text-white/70 font-bold'}>Нових користувачів</div>
                         </div>
                     </div>
                     <p className={'text-white/70 text-center mt-4 text-sm'}>Унікальні користувачі за останні 7 днів</p>
@@ -91,7 +95,7 @@ export default function AdminPage() {
                         </div>
                         <div>
                             <Counter targetValue={analytics?.eventCount ?? 0} className={'text-5xl'}/>
-                            <div className={'text-md text-white/70 font-bold'}>Кількість взаємодій</div>
+                            <div className={'text-sm text-nowrap 2xl:text-md text-white/70 font-bold'}>Кількість взаємодій</div>
                         </div>
                     </div>
                     <p className={'text-white/70 text-center mt-4 text-sm'}>Кількість взаємодій\кліків на сайті</p>
@@ -103,7 +107,7 @@ export default function AdminPage() {
                             <Icon icon="gravity-ui:persons" className={'w-8 h-8 text-[#2EECC5]'}/>
                         </div>
                         <div>
-                            <span className="font-bold text-foreground text-5xl">{analytics?.averageSessionDuration ?? 0}</span>
+                            <span className="font-bold text-foreground text-xl 2xl:text-4xl">{analytics?.averageSessionDuration ?? 0}</span>
                             <div className={'text-md text-white/70 font-bold'}>Час відвідування</div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import { Button } from "../ui/moving-border";
 import {pb} from "@/pb";
 import {toast, Toaster} from "sonner";
 import CustomModal from "@/components/Others/CustomModal";
+import {Icon} from "@iconify/react";
 
 export default function Header() {
     const links = [
@@ -123,13 +124,23 @@ export default function Header() {
                         </div>
 
                         <div className="mt-8 flex justify-center">
-                            <Button
-                                borderRadius="9999px"
-                                className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold cursor-pointer"
-                                onClick={() => sendRequest()}>
-                                Надіслати
-                            </Button>
+                            <button
+                                className="flex gap-2 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white disabled:opacity-40"
+                                onClick={() => sendRequest()}
+                                disabled={contact.length < 3 && name.length < 2}>
+                                <Icon icon="ph:plus-bold"/>
+                                Додати роботу
+                            </button>
                         </div>
+
+                        {
+                            name.length < 1 ? (
+                                <p className='text-sm text-center text-white/70 mt-2'>Спочатку заповніть необхідну інформацію.</p>
+                            ) : (
+                                ''
+                            )
+                        }
+
                         <div className="mt-4 text-center text-xs text-white/80">
                             Менеджер звʼяжеться з вами якомога швидше.
                             <span>Всі права захищено.</span>

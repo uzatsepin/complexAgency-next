@@ -7,6 +7,7 @@ import CustomModal from "@/components/Others/CustomModal";
 import Cookies from "js-cookie";
 import {toast, Toaster} from "sonner";
 import CommentItem from "@/components/KanbanBoard/CommentItem";
+import {useRequestStore} from "@/store/useRequestStore";
 
 export interface IFastRequest {
     id: string;
@@ -72,23 +73,14 @@ const KanbanBoard: React.FC = () => {
 const Board: React.FC = () => {
     const [cards, setCards] = useState<IFastRequest[]>([]);
 
-    const fetchRequest = async () => {
-        try {
-            const requests = await pb.collection("fastRequest").getFullList<IFastRequest>({
-                sort: "-created",
-            });
-            setCards(requests);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const {cards: cardsStore} = useRequestStore();
 
     useEffect(() => {
-        fetchRequest();
-    }, []);
+        setCards(cardsStore);
+    }, [cardsStore]);
 
     return (
-        <div className="grid grid-cols-5 w-full gap-6 overflow-scroll p-12">
+        <div className="grid grid-cols-5 w-full gap-6 overflow-scroll py-6 2xl:py-12">
             <Column
                 title="Нові"
                 column="new"

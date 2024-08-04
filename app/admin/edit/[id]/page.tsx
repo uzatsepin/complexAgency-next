@@ -102,34 +102,7 @@ const EditPage = ({params}: { params: { id: string } }) => {
     };
 
     return (
-        <div className="h-screen flex">
-            <div className="bg-zinc-800 w-[300px] py-6">
-                <div className="flex items-center justify-center">
-                    <Image
-                        src="/logo.svg"
-                        width={131}
-                        height={65}
-                        alt="logo"
-                        className="cursor-pointer h-12 w-32 md:h-16 md:w-36"
-                    />
-                </div>
-                <div className="mt-8">
-                    <ul className="flex flex-col p-4 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 cursor-pointer transition-all duration-300">
-                        <li>
-                            <Link
-                                href="/admin"
-                                className="flex gap-2 items-center">
-                                <Icon
-                                    icon="bytesize:portfolio"
-                                    className="text-white k h-6 w-6"
-                                />
-                                Портфоліо
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div className="p-10 w-full">
+        <div className="h-screen">
                 <div className="flex justify-between pb-4 border-b border-b-[#2EECC5]">
                     <div>
                         <h1 className="text-3xl font-bold">Редагування {portfolioItem?.title}</h1>
@@ -137,7 +110,7 @@ const EditPage = ({params}: { params: { id: string } }) => {
                 </div>
 
                 <div className="mt-10 grid grid-cols-2">
-                    <div className="mt-8">
+                    <div className="">
                         <div className="relative w-full">
                             <label
                                 htmlFor="image"
@@ -263,9 +236,8 @@ const EditPage = ({params}: { params: { id: string } }) => {
                         />
                     </div>
                 </div>
-            </div>
             <Toaster position="top-right"/>
-        </div>
+            </div>
     );
 };
 
