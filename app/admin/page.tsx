@@ -23,15 +23,17 @@ export default function AdminPage() {
 
     const fetchAnalyticsData = async () => {
         try {
-            await fetch('/api/analytics')
-                .then(res => res.json())
-                .then(res => setAnalytics(res));
-
-
-        } catch(e) {
-            console.log(e);
+            const res = await fetch('/api/analytics');
+            if (!res.ok) {
+                throw new Error(`Error: ${res.status}`);
+            }
+            const data = await res.json();
+            setAnalytics(data);
+        } catch (e) {
+            console.error('Failed to fetch analytics data:', e);
         }
-    }
+    };
+
 
     useEffect(() => {
         fetchAnalyticsData();
