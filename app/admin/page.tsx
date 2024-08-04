@@ -23,11 +23,10 @@ export default function AdminPage() {
 
     const fetchAnalyticsData = async () => {
         try {
-            const {data} = await axios.get('/api/analytics');
+            await fetch('/api/analytics')
+                .then(res => res.json())
+                .then(res => setAnalytics(res));
 
-            if(data) {
-                setAnalytics(data);
-            }
 
         } catch(e) {
             console.log(e);
