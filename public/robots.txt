@@ -1,0 +1,26 @@
+# Block all crawlers from /admin
+User-agent: *
+Disallow: /admin
+
+# Allow all crawlers to index other pages
+User-agent: *
+Allow: /
+
+# Specify crawl-delay for Bing
+User-agent: Bingbot
+Crawl-delay: 10
+
+# Specific instructions for Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+
+# Specific instructions for Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /admin
+Crawl-delay: 5
+
+# Allow Google's image crawler to index images
+User-agent: Googlebot-Image
+Allow: /
