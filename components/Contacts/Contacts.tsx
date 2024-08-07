@@ -1,7 +1,10 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { Button } from "../ui/moving-border";
 import Image from "next/image";
+import { toast } from "sonner";
+import { pb } from "@/pb";
 
 export default function Contacts() {
     const title = [
@@ -14,6 +17,35 @@ export default function Contacts() {
             className: "text-[#2CE8C2]"
         }
     ];
+
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [direction, setDirection] = useState('')
+    const [contact, setContact] = useState('')
+    const [tech, setTech] = useState('')
+
+
+    async function handleSubmitForm() {
+        try {
+            const response = await pb.collection('fastRequest').create({
+                title: name,
+                phone,
+                contact,
+                direction,
+                tech,
+                column: 'new'
+            })
+            setName('')
+            setPhone('')
+            setDirection('')
+            setContact('')
+            setTech('')
+            toast.success('Запит успішно відправлено')
+        } catch (e) {
+            console.log(e)
+            toast.error('Помилка при відправці запиту')
+        }
+    }
 
     return (
         <div className="bg-bgFooter">
@@ -35,6 +67,8 @@ export default function Contacts() {
                                     type="text"
                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
                                     placeholder="Ваше ім'я"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -50,6 +84,8 @@ export default function Contacts() {
                                     type="text"
                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
                                     placeholder="+38099999999"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -64,6 +100,8 @@ export default function Contacts() {
                                     type="text"
                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
                                     placeholder="Дизайн/Розробка/..."
+                                    value={direction}
+                                    onChange={(e) => setDirection(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -81,6 +119,8 @@ export default function Contacts() {
                                     type="text"
                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
                                     placeholder="@user\user@admin.com"
+                                    value={contact}
+                                    onChange={(e) => setContact(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -96,6 +136,8 @@ export default function Contacts() {
                                     type="text"
                                     className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
                                     placeholder="Потрібен сайт для відображення..."
+                                    value={tech}
+                                    onChange={(e) => setTech(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -103,7 +145,8 @@ export default function Contacts() {
                         <div className="mt-8 md:mt-auto flex justify-center md:justify-end">
                             <Button
                                 borderRadius="9999px"
-                                className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
+                                className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold" 
+                                onClick={handleSubmitForm}>
                                 Надіслати
                             </Button>
                         </div>

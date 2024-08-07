@@ -8,6 +8,7 @@ const CommentItem = ({author, date, comment}:{author: string, date: string, comm
                 <div className='flex justify-between items-center pb-2 border-b border-neutral-700'>
                     <div className='text-sm font-bold'>{author}</div>
                     <time className='text-sm text-white/70'>{dayjs(date).format('DD.MM HH:mm')}</time>
+                    <div className="text-sm font-bold"></div>
                 </div>
                 <div className='mt-4'>{comment}</div>
             </div>

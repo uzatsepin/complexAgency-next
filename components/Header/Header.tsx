@@ -7,6 +7,7 @@ import {pb} from "@/pb";
 import {toast, Toaster} from "sonner";
 import CustomModal from "@/components/Others/CustomModal";
 import {Icon} from "@iconify/react";
+import Link from "next/link";
 
 export default function Header() {
     const links = [
@@ -56,7 +57,7 @@ export default function Header() {
 
     return (
         <div className="flex items-center justify-between px-2 md:px-0">
-            <div>
+            <Link href="/">
                 <Image
                     src="./logo.svg"
                     width={131}
@@ -64,7 +65,7 @@ export default function Header() {
                     alt="logo"
                     className="cursor-pointer h-12 w-32 md:h-16 md:w-36"
                 />
-            </div>
+            </Link>
             <div>
                 <ul className="gap-2 md:gap-10 border border-[#FFFFFF30] px-2 py-1 md:px-6 md:py-2 rounded-full flex fixed md:relative right-1/2 md:right-0 translate-x-1/2 md:translate-x-0 bottom-6 md:bottom-0 z-10 w-11/12 md:w-fit bg-zinc-900  bg-opacity-80 backdrop-blur-2xl justify-center">
                     {links.map((link) => (

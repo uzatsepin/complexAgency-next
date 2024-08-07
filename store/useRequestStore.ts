@@ -10,6 +10,9 @@ interface IFastRequest {
     created: string;
     updated: string;
     column: string;
+    direction?: string;
+    tech?: string;
+    phone?: string;
 }
 
 interface CardStore {

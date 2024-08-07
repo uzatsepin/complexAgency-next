@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {motion} from "framer-motion";
-import {Icon} from "@iconify/react";
-import {pb} from "@/pb";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
+import { pb } from "@/pb";
 import dayjs from "dayjs";
 import CustomModal from "@/components/Others/CustomModal";
 import Cookies from "js-cookie";
-import {toast, Toaster} from "sonner";
+import { toast, Toaster } from "sonner";
 import CommentItem from "@/components/KanbanBoard/CommentItem";
-import {useRequestStore} from "@/store/useRequestStore";
+import { useRequestStore } from "@/store/useRequestStore";
 
 export interface IFastRequest {
     id: string;
@@ -17,6 +17,9 @@ export interface IFastRequest {
     created: string;
     updated: string;
     column: string;
+    direction?: string;
+    tech?: string;
+    phone?: string;
 }
 
 interface ColumnProps {
@@ -34,38 +37,41 @@ interface CardProps {
     contact: string;
     created: string;
     handleDragStart: (e: React.DragEvent<HTMLDivElement>, card: IFastRequest) => void;
+    direction?: string;
+    tech?: string;
+    phone?: string;
 }
 
 interface IUser {
-    avatar: string,
-    collectionId: string,
-    collectionName: string,
-    created: string,
-    email: string,
-    emailVisibility: Boolean,
-    id: string,
-    name: string,
-    updated: string,
-    username: string,
-    verified: Boolean
+    avatar: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    email: string;
+    emailVisibility: Boolean;
+    id: string;
+    name: string;
+    updated: string;
+    username: string;
+    verified: Boolean;
 }
 
 interface IComment {
-    id: string
-    user: string
-    comment: string
-    request: string
-    created: string
-    updated: string
+    id: string;
+    user: string;
+    comment: string;
+    request: string;
+    created: string;
+    updated: string;
     expand: {
-        user: IUser
-    }
+        user: IUser;
+    };
 }
 
 const KanbanBoard: React.FC = () => {
     return (
         <div className="h-screen w-full bg-neutral-900 text-neutral-50">
-            <Board/>
+            <Board />
         </div>
     );
 };
@@ -73,7 +79,7 @@ const KanbanBoard: React.FC = () => {
 const Board: React.FC = () => {
     const [cards, setCards] = useState<IFastRequest[]>([]);
 
-    const {cards: cardsStore} = useRequestStore();
+    const { cards: cardsStore } = useRequestStore();
 
     useEffect(() => {
         setCards(cardsStore);
@@ -109,12 +115,12 @@ const Board: React.FC = () => {
                 cards={cards}
                 setCards={setCards}
             />
-            <BurnBarrel setCards={setCards}/>
+            <BurnBarrel setCards={setCards} />
         </div>
     );
 };
 
-const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setCards}) => {
+const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, setCards }) => {
     const [active, setActive] = useState(false);
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, card: IFastRequest) => {
@@ -128,7 +134,7 @@ const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setC
         clearHighlights();
 
         const indicators = getIndicators();
-        const {element} = getNearestIndicator(e, indicators);
+        const { element } = getNearestIndicator(e, indicators);
 
         const before = element?.dataset.before || "-1";
 
@@ -137,7 +143,7 @@ const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setC
 
             let cardToTransfer = copy.find((c) => c.id === cardId);
             if (!cardToTransfer) return;
-            cardToTransfer = {...cardToTransfer, column};
+            cardToTransfer = { ...cardToTransfer, column };
 
             copy = copy.filter((c) => c.id !== cardId);
 
@@ -154,7 +160,7 @@ const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setC
 
             setCards(copy);
 
-            pb.collection("fastRequest").update(cardId, {column});
+            pb.collection("fastRequest").update(cardId, { column });
         }
     };
 
@@ -188,14 +194,14 @@ const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setC
                 const box = child.getBoundingClientRect();
                 const offset = e.clientY - (box.top + DISTANCE_OFFSET);
                 if (offset < 0 && offset > closest.offset) {
-                    return {offset: offset, element: child};
+                    return { offset: offset, element: child };
                 } else {
                     return closest;
                 }
             },
             {
                 offset: Number.NEGATIVE_INFINITY,
-                element: indicators[indicators.length - 1],
+                element: indicators[indicators.length - 1]
             }
         );
 
@@ -217,158 +223,182 @@ const Column: React.FC<ColumnProps> = ({title, headingColor, cards, column, setC
         <div className="w-full shrink-0">
             <div className="mb-3 flex items-center justify-between">
                 <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-                <span className="rounded text-sm text-neutral-400">
-          {filteredCards.length}
-        </span>
+                <span className="rounded text-sm text-neutral-400">{filteredCards.length}</span>
             </div>
             <div
                 onDrop={handleDragEnd}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                className={`h-full w-full transition-colors ${
-                    active ? "bg-neutral-800/50" : "bg-neutral-800/0"
-                }`}
-            >
+                className={`h-full w-full transition-colors ${active ? "bg-neutral-800/50" : "bg-neutral-800/0"}`}>
                 {filteredCards.map((c) => (
-                    <Card key={c.id} {...c} handleDragStart={handleDragStart}/>
+                    <Card
+                        key={c.id}
+                        {...c}
+                        handleDragStart={handleDragStart}
+                    />
                 ))}
-                <DropIndicator beforeId={null} column={column}/>
+                <DropIndicator
+                    beforeId={null}
+                    column={column}
+                />
                 {/* <AddCard column={column} setCards={setCards} /> */}
             </div>
         </div>
     );
 };
 
-const Card: React.FC<CardProps> = ({title, id, column, handleDragStart, contact, created}) => {
+const Card: React.FC<CardProps> = ({ title, id, column, handleDragStart, contact, created, direction, tech, phone }) => {
     const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-        handleDragStart(e, {title, id, column, contact, created, from: '', updated: ''});
+        handleDragStart(e, { title, id, column, contact, created, from: "", updated: "", direction, tech, phone });
     };
 
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
         setModalOpen(true);
-        fetchComments(id)
-    }
+        fetchComments(id);
+    };
     const [openAddComment, setOpenAddComment] = useState(false);
-    const [commentText, setCommentText] = useState('');
+    const [commentText, setCommentText] = useState("");
 
     const [comments, setComments] = useState<IComment[]>([]);
 
     const fetchComments = async (id: string) => {
         try {
-            const comments = await pb.collection('comments').getFullList<IComment>({
+            const comments = await pb.collection("comments").getFullList<IComment>({
                 filter: `request="${id}"`,
-                sort: '-created',
-                expand: 'user'
+                sort: "-created",
+                expand: "user"
             });
-            setComments(comments)
-            console.log(comments)
+            setComments(comments);
+            console.log(comments);
         } catch (error) {
             console.error("Error fetching comments:", error);
             return [];
         }
-    }
+    };
 
-    const handleSubmitComment = async (e:React.FormEvent<HTMLFormElement>) => {
+    const handleSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const authCookie = Cookies.get("pb_auth");
-        const authParsedData = JSON.parse(authCookie ?? '');
+        const authParsedData = JSON.parse(authCookie ?? "");
         const userId = authParsedData.record.id;
 
         try {
-            await pb.collection('comments').create({
+            await pb.collection("comments").create({
                 request: id,
                 comment: commentText,
                 user: userId
-            })
-            toast.success('Коментар додано')
+            });
+            toast.success("Коментар додано");
             setOpenAddComment(false);
-            setCommentText('')
-            fetchComments(id)
+            setCommentText("");
+            fetchComments(id);
         } catch (e) {
-            console.log(e)
-            toast.error(`Виникла помилка ${e}`)
+            console.log(e);
+            toast.error(`Виникла помилка ${e}`);
         }
-    }
+    };
 
     const getColumnBgClass = (column: string) => {
         switch (column) {
-            case 'new':
-                return 'bg-blue-600';
-            case 'inwork':
-                return 'bg-yellow-600';
-            case 'canceled':
-                return 'bg-red-600';
-            case 'done':
-                return 'bg-green-600';
+            case "new":
+                return "bg-blue-600";
+            case "inwork":
+                return "bg-yellow-600";
+            case "canceled":
+                return "bg-red-600";
+            case "done":
+                return "bg-green-600";
             default:
-                return '';
+                return "";
         }
     };
 
     return (
         <>
-            <DropIndicator beforeId={id} column={column}/>
-            <motion.div layout layoutId={id}
-                        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
+            <DropIndicator
+                beforeId={id}
+                column={column}
+            />
+            <motion.div
+                layout
+                layoutId={id}
+                className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
                 <div
                     draggable="true"
                     onDragStart={onDragStart}
-                    onClick={openModal}
-                >
+                    onClick={openModal}>
                     <p className="text-sm text-neutral-100">
                         <span className="mt-0.5 text-neutral-300">Імʼя:</span> {title}
                     </p>
                     <p className="text-sm text-neutral-100">
                         <span className="mt-0.5 text-neutral-300">Контакт:</span> {contact}
                     </p>
-                    <p className="text-sm text-neutral-500 flex justify-end mt-2">
-                        {dayjs(created).format("DD.MM.YYYY HH:mm")}
-                    </p>
+                    <p className="text-sm text-neutral-500 flex justify-end mt-2">{dayjs(created).format("DD.MM.YYYY HH:mm")}</p>
                 </div>
             </motion.div>
-            <CustomModal isOpen={modalOpen} onClose={() => setModalOpen(false)} header={`Карточка ${title}`}>
+            <CustomModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                header={`Карточка ${title}`}>
                 <div className="flex gap-2 flex-col w-full">
                     <div>
-                        <span className='text-white/80'>Потенційний клієнт:</span> <span
-                        className='font-bold'>{title}</span>
+                        <span className="text-white/80">Потенційний клієнт:</span> <span className="font-bold">{title}</span>
                     </div>
                     <div>
-                        <span className='text-white/80'>Звʼязок:</span> <span className='font-bold'>{contact}</span>
+                        <span className="text-white/80">Звʼязок:</span> <span className="font-bold">{contact}</span>
                     </div>
-                    <div className='mt-2'>
-                        <span className='text-white/80'>Статус:</span> <span
-                        className={`ml-2 py-1 px-2 rounded-2xl ${getColumnBgClass(column)}`}>{column}</span>
+                    {direction && (
+                        <div>
+                            <span className="text-white/80">Напрямок:</span> <span className="font-bold">{direction}</span>
+                        </div>
+                    )}
+                    {phone && (
+                        <div>
+                            <span className="text-white/80">Номер телефону:</span> <span className="font-bold">{phone}</span>
+                        </div>
+                    )}
+                    <div className="mt-2">
+                        <span className="text-white/80">Статус:</span>{" "}
+                        <span className={`ml-2 py-1 px-2 rounded-2xl ${getColumnBgClass(column)}`}>{column}</span>
                     </div>
+                    {tech && (
+                        <div>
+                            <span className="text-white/80">Номер телефону:</span> <span className="font-bold">{tech}</span>
+                        </div>
+                    )}
                     <div>
-                        <span className='text-white/80'>Коментарі:</span>
+                        <span className="text-white/80">Коментарі:</span>
                     </div>
-                    <div className='mt-2'>
+                    <div className="mt-2">
                         {/*comment item*/}
 
-                        <div className='flex flex-col gap-4 max-h-[340px] overflow-y-auto no-visible-scrollbar'>
-                            {
-                                comments.map(item => {
-                                    return (
-                                        <CommentItem author={item.expand.user.name} date={item.created}
-                                                     comment={item.comment} key={item.id}/>
-                                    )
-                                })
-                            }
+                        <div className="flex flex-col gap-4 max-h-[340px] overflow-y-auto no-visible-scrollbar">
+                            {comments.map((item) => {
+                                return (
+                                    <CommentItem
+                                        author={item.expand.user.name}
+                                        date={item.created}
+                                        comment={item.comment}
+                                        key={item.id}
+                                    />
+                                );
+                            })}
                         </div>
 
                         {/*comment toggle button*/}
                         {openAddComment ? (
-                            <motion.form layout
-                                         initial={{opacity: 0, y: 20}}
-                                         animate={{opacity: 1, y: 0}}
-                                         exit={{opacity: 0, y: -20}}
-                                         transition={{duration: 0.3}}
-                                         onSubmit={handleSubmitComment}>
+                            <motion.form
+                                layout
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3 }}
+                                onSubmit={handleSubmitComment}>
                                 <motion.textarea
-                                    initial={{height: 0}}
-                                    animate={{height: 'auto'}}
-                                    transition={{duration: 0.3}}
+                                    initial={{ height: 0 }}
+                                    animate={{ height: "auto" }}
+                                    transition={{ duration: 0.3 }}
                                     onChange={(e) => setCommentText(e.target.value)}
                                     autoFocus
                                     placeholder="Додати коментар"
@@ -377,42 +407,39 @@ const Card: React.FC<CardProps> = ({title, id, column, handleDragStart, contact,
                                 <div className="mt-1.5 flex items-center justify-end gap-1.5">
                                     <button
                                         onClick={() => setOpenAddComment(false)}
-                                        className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
-                                    >
+                                        className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50">
                                         закрити
                                     </button>
                                     <button
                                         type="submit"
-                                        className="flex items-center gap-1.5 rounded bg-[#2EECC5]/20 px-3 py-1.5 text-xs text-neutral-100 transition-colors hover:bg-neutral-300"
-                                    >
+                                        className="flex items-center gap-1.5 rounded bg-[#2EECC5]/20 px-3 py-1.5 text-xs text-neutral-100 transition-colors hover:bg-neutral-300">
                                         <span>Додати</span>
-                                        <Icon icon="fa6-solid:plus"/>
+                                        <Icon icon="fa6-solid:plus" />
                                     </button>
                                 </div>
                             </motion.form>
                         ) : (
                             <motion.button
-                                initial={{opacity: 0, y: 20}}
-                                animate={{opacity: 1, y: 0}}
-                                exit={{opacity: 0, y: -20}}
-                                transition={{duration: 0.3}}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3 }}
                                 layout
                                 onClick={() => setOpenAddComment(true)}
-                                className="flex gap-2 w-fit mx-auto mt-6 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white"
-                            >
+                                className="flex gap-2 w-fit mx-auto mt-6 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white">
                                 <span>Додати коментар</span>
-                                <Icon icon="ph:plus-bold"/>
+                                <Icon icon="ph:plus-bold" />
                             </motion.button>
                         )}
                     </div>
                 </div>
             </CustomModal>
-            <Toaster/>
+            <Toaster />
         </>
     );
 };
 
-const DropIndicator: React.FC<{ beforeId?: string | null; column: string }> = ({beforeId, column}) => {
+const DropIndicator: React.FC<{ beforeId?: string | null; column: string }> = ({ beforeId, column }) => {
     return (
         <div
             data-before={beforeId || "-1"}
@@ -422,7 +449,7 @@ const DropIndicator: React.FC<{ beforeId?: string | null; column: string }> = ({
     );
 };
 
-const BurnBarrel: React.FC<{ setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({setCards}) => {
+const BurnBarrel: React.FC<{ setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({ setCards }) => {
     const [active, setActive] = useState(false);
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -438,7 +465,7 @@ const BurnBarrel: React.FC<{ setCards: React.Dispatch<React.SetStateAction<IFast
         const cardId = e.dataTransfer.getData("cardId");
         setCards((prev) => prev.filter((c) => c.id !== cardId));
         setActive(false);
-        pb.collection('fastRequest').delete(cardId);
+        pb.collection("fastRequest").delete(cardId);
     };
 
     return (
@@ -447,20 +474,14 @@ const BurnBarrel: React.FC<{ setCards: React.Dispatch<React.SetStateAction<IFast
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
-                active
-                    ? "border-red-800 bg-red-800/20 text-red-500"
-                    : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
-            }`}
-        >
-            {active ? <Icon icon="fa6-solid:fire"/> : <Icon icon="fa6-solid:trash"/>}
+                active ? "border-red-800 bg-red-800/20 text-red-500" : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+            }`}>
+            {active ? <Icon icon="fa6-solid:fire" /> : <Icon icon="fa6-solid:trash" />}
         </div>
     );
 };
 
-const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({
-                                                                                                                   column,
-                                                                                                                   setCards
-                                                                                                               }) => {
+const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStateAction<IFastRequest[]>> }> = ({ column, setCards }) => {
     const [text, setText] = useState("");
     const [adding, setAdding] = useState(false);
 
@@ -472,10 +493,13 @@ const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStat
             column,
             title: text.trim(),
             id: Math.random().toString(),
-            contact: '',
-            from: '',
+            contact: "",
+            from: "",
             created: new Date().toISOString(),
             updated: new Date().toISOString(),
+            direction: "",
+            tech: "",
+            phone: ""
         };
 
         setCards((prev) => [...prev, newCard]);
@@ -485,26 +509,26 @@ const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStat
     return (
         <>
             {adding ? (
-                <motion.form layout onSubmit={handleSubmit}>
-          <textarea
-              onChange={(e) => setText(e.target.value)}
-              autoFocus
-              placeholder="Add new task..."
-              className="w-full rounded border border-[#2EECC5] bg-[#2EECC5]/20 p-3 text-sm text-neutral-50 placeholder-[#2EECC5] focus:outline-0"
-          />
+                <motion.form
+                    layout
+                    onSubmit={handleSubmit}>
+                    <textarea
+                        onChange={(e) => setText(e.target.value)}
+                        autoFocus
+                        placeholder="Add new task..."
+                        className="w-full rounded border border-[#2EECC5] bg-[#2EECC5]/20 p-3 text-sm text-neutral-50 placeholder-[#2EECC5] focus:outline-0"
+                    />
                     <div className="mt-1.5 flex items-center justify-end gap-1.5">
                         <button
                             onClick={() => setAdding(false)}
-                            className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
-                        >
+                            className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50">
                             закрити
                         </button>
                         <button
                             type="submit"
-                            className="flex items-center gap-1.5 rounded bg-[#2EECC5]/20 px-3 py-1.5 text-xs text-neutral-100 transition-colors hover:bg-neutral-300"
-                        >
+                            className="flex items-center gap-1.5 rounded bg-[#2EECC5]/20 px-3 py-1.5 text-xs text-neutral-100 transition-colors hover:bg-neutral-300">
                             <span>Додати</span>
-                            <Icon icon="fa6-solid:plus"/>
+                            <Icon icon="fa6-solid:plus" />
                         </button>
                     </div>
                 </motion.form>
@@ -512,10 +536,9 @@ const AddCard: React.FC<{ column: string; setCards: React.Dispatch<React.SetStat
                 <motion.button
                     layout
                     onClick={() => setAdding(true)}
-                    className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
-                >
+                    className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50">
                     <span>Add card</span>
-                    <Icon icon="fa6-solid:plus"/>
+                    <Icon icon="fa6-solid:plus" />
                 </motion.button>
             )}
         </>
