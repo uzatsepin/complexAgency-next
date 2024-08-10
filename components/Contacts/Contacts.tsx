@@ -23,9 +23,30 @@ export default function Contacts() {
     const [direction, setDirection] = useState('')
     const [contact, setContact] = useState('')
     const [tech, setTech] = useState('')
+    const [errors, setErrors] = useState<IError>({})
 
+    interface IError {
+        name?: string
+        phone?: string
+        contact?: string
+        direction?: string
+        tech?: string
+    }
 
     async function handleSubmitForm() {
+        const newErrors : IError = {};
+
+        if (!name) newErrors.name = 'Поле не може бути пустим, введіть ваше ім\'я';
+        if (!phone) newErrors.phone = 'Введіть ваш телефон';
+        if (!contact) newErrors.contact = 'Введіть пошту або телеграм';
+        if (!direction) newErrors.direction = 'Оберіть напрямок';
+        if (!tech) newErrors.tech = 'Опишіть технічне завдання';
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         try {
             const response = await pb.collection('fastRequest').create({
                 title: name,
@@ -34,16 +55,18 @@ export default function Contacts() {
                 direction,
                 tech,
                 column: 'new'
-            })
-            setName('')
-            setPhone('')
-            setDirection('')
-            setContact('')
-            setTech('')
-            toast.success('Запит успішно відправлено')
+            });
+
+            setName('');
+            setPhone('');
+            setDirection('');
+            setContact('');
+            setTech('');
+            setErrors({});
+            toast.success('Запит успішно відправлено');
         } catch (e) {
-            console.log(e)
-            toast.error('Помилка при відправці запиту')
+            console.log(e);
+            toast.error('Помилка при відправці запиту');
         }
     }
 
@@ -70,6 +93,7 @@ export default function Contacts() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
+                                { errors.name && <span className="text-red-500 text-sm">{errors.name}</span> }
                             </div>
                         </div>
                         <div className="mt-8">
@@ -87,6 +111,7 @@ export default function Contacts() {
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
+                                {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
                             </div>
                         </div>
                         <div className="mt-8">
@@ -103,6 +128,7 @@ export default function Contacts() {
                                     value={direction}
                                     onChange={(e) => setDirection(e.target.value)}
                                 />
+                                {errors.direction && <span className="text-red-500 text-sm">{errors.direction}</span>}
                             </div>
                         </div>
                     </div>
@@ -122,6 +148,7 @@ export default function Contacts() {
                                     value={contact}
                                     onChange={(e) => setContact(e.target.value)}
                                 />
+                                {errors.contact && <span className="text-red-500 text-sm">{errors.contact}</span>}
                             </div>
                         </div>
                         <div className="mt-8">
@@ -139,6 +166,8 @@ export default function Contacts() {
                                     value={tech}
                                     onChange={(e) => setTech(e.target.value)}
                                 />
+                                {errors.tech && <span className="text-red-500 text-sm">{errors.tech}</span>}
+
                             </div>
                         </div>
 

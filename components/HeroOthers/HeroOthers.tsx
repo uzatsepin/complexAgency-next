@@ -36,6 +36,24 @@ export default function HeroOthers() {
         }
     ];
 
+    const links = [
+        {
+            name: "Головна",
+            link: "/#hero",
+            icon: "lucide:home"
+        },
+        {
+            name: "Про нас",
+            link: "/#whyUs",
+            icon: "lucide:shield-question"
+        },
+        {
+            name: "Контакти",
+            link: "/#contacts",
+            icon: "lucide:phone-call"
+        }
+    ];
+
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -70,7 +88,7 @@ export default function HeroOthers() {
             className="flex flex-col bg-center bg-no-repeat bg-cover bg-opacity-4 bg-blend-luminosity"
             style={{backgroundImage: "url('/wave-whyUs.svg')", backgroundColor: "rgba(24, 11, 28, 0.04)"}}>
             <div className="container mx-auto pt-6 h-screen px-4 md:px-6 relative">
-                <Header/>
+                <Header links={links}/>
 
                 <div
                     className="flex flex-col gap-4 px-4 md:px-0 sm:gap-6 max-w-full md:max-w-[672px] mt-20 sm:mt-36 md:mt-64">
@@ -161,11 +179,11 @@ export default function HeroOthers() {
                     exit="hidden"
                     className="xl:flex xl:max-w-none">
                     <div
-                        className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[670px] xl:max-h-[709px] absolute bottom-0 right-0 ">
+                        className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[470px] xl:max-h-[520px] absolute bottom-0 right-0 ">
                         <Image
-                            src={"/main-person.png"}
-                            width={670}
-                            height={709}
+                            src={"/react-hexagon.png"}
+                            width={570}
+                            height={570}
                             alt=""
                             className="translate-z-0 w-full h-full"
                         />

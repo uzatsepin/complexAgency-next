@@ -39,13 +39,47 @@ export default function HeroPage() {
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
+    const [error, setError] = useState<IError>({})
 
+    const links = [
+        {
+            name: "Головна",
+            link: "#hero",
+            icon: "lucide:home"
+        },
+        {
+            name: "Про нас",
+            link: "#whyUs",
+            icon: "lucide:shield-question"
+        },
+        {
+            name: "Контакти",
+            link: "#contacts",
+            icon: "lucide:phone-call"
+        }
+    ];
 
     const closeModal = () => {
         setIsOpen(false);
     }
 
+    interface IError {
+        name?: string
+        contact?: string
+    }
+
     const sendRequest = async () => {
+
+        const newErrors: IError = {};
+
+        if(!name) newErrors.name = 'Введіть ваше ім\'я';
+        if(!contact) newErrors.contact = 'Введіть ваш телефон';
+
+        if(Object.keys(newErrors).length > 0) {
+            setError(newErrors);
+            return;
+        }
+
         try {
             const response = await pb.collection('fastRequest').create({
                 title: name,
@@ -70,7 +104,7 @@ export default function HeroPage() {
             className="flex flex-col bg-center bg-no-repeat bg-cover bg-opacity-4 bg-blend-luminosity"
             style={{backgroundImage: "url('/wave-whyUs.svg')", backgroundColor: "rgba(24, 11, 28, 0.04)"}}>
             <div className="container mx-auto pt-6 h-screen px-4 md:px-6 relative">
-                <Header/>
+                <Header links={links} />
 
                 <div
                     className="flex flex-col gap-4 px-4 md:px-0 sm:gap-6 max-w-full md:max-w-[672px] mt-20 sm:mt-36 md:mt-64">
@@ -119,6 +153,7 @@ export default function HeroPage() {
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
+                                    {error.name && <p className="text-red-500">{error.name}</p>}
                                 </div>
 
                                 <div className="mt-4">
@@ -136,6 +171,7 @@ export default function HeroPage() {
                                             value={contact}
                                             onChange={(e) => setContact(e.target.value)}
                                         />
+                                        {error.contact && <p className="text-red-500">{error.contact}</p>}
                                     </div>
                                 </div>
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import {collectionIdPortfolio, getImgUrl} from "@/lib/getImgUrl";
 import {IPortfolio} from "@/components/Works/Works";
+import Link from "next/link";
 
 
 export default function PortfolioCard({id,image, title, descr, type, technologiesIcons, hoverText}: IPortfolio) {
@@ -31,11 +32,11 @@ export default function PortfolioCard({id,image, title, descr, type, technologie
                 <div className="mb-4 flex gap-4 ">
                     <div className="text-xs">{type}</div>
                     <div>
-                        <a
-                            href="#"
+                        <Link
+                            href="/react"
                             className="block">
                             <h3 className="text-2xl font-bold group-hover:text-[#2CE8C2] transition-all duration-300">{title}</h3>
-                        </a>
+                        </Link>
                         <p className="text-white/80 mt-4">{descr}</p>
                     </div>
                 </div>

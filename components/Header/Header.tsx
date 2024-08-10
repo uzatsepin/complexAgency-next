@@ -9,28 +9,23 @@ import CustomModal from "@/components/Others/CustomModal";
 import {Icon} from "@iconify/react";
 import Link from "next/link";
 
-export default function Header() {
-    const links = [
-        {
-            name: "Головна",
-            link: "#hero",
-            icon: "lucide:home"
-        },
-        {
-            name: "Про нас",
-            link: "#whyUs",
-            icon: "lucide:shield-question"
-        },
-        {
-            name: "Контакти",
-            link: "#contacts",
-            icon: "lucide:phone-call"
-        }
-    ];
+interface ILinks {
+    name: string
+    link: string
+    icon: string
+}
+
+export default function Header({links}: {links: ILinks[]}) {
+
+    interface IError {
+        name?: string
+        contact?: string
+    }
 
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
+    const [errors, setErrors] = useState({} as IError);
 
 
     const closeModal = () => {
@@ -38,6 +33,16 @@ export default function Header() {
     }
 
     const sendRequest = async () => {
+        const newErrors: IError = {};
+
+        if(!name) newErrors.name = 'Поле не може бути пустим, введіть імʼя';
+        if(!contact) newErrors.contact = 'Поле не може бути пустим, введіть телефон';
+
+        if(Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         try {
             const response = await pb.collection('fastRequest').create({
                 title: name,
@@ -99,11 +104,12 @@ export default function Header() {
                             <input
                                 id="name"
                                 type="text"
-                                className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                className={`outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput ${errors.name ? 'border-red-500' : ''}`}
                                 placeholder="Ваше ім'я"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
+                            {errors.name && <div className="text-red-500 text-sm mt-2">{errors.name}</div>}
                         </div>
 
                         <div className="mt-4">
@@ -116,33 +122,25 @@ export default function Header() {
                                 <input
                                     id="contact"
                                     type="text"
-                                    className="outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput"
+                                    className={`outline-none w-full bg-zinc-800 py-4 px-6 border border-[#ffffff]/20 rounded-full cursor-pointer hover:border-[#2CEEC2] transition-all duration-300 focus:border:[#2CEEC2] focus:shadow-shadowInput ${errors.name ? 'border-red-500' : ''}`}
                                     placeholder="@username\user@gmail.com"
                                     value={contact}
                                     onChange={(e) => setContact(e.target.value)}
                                 />
+                                {errors.contact && <div className="text-red-500 text-sm mt-2">{errors.contact}</div>}
                             </div>
                         </div>
 
                         <div className="mt-8 flex justify-center">
                             <button
                                 className="flex gap-2 text-center items-center justify-center sm:text-lg rounded-[41px] border-[1.5px] border-[#2EECC5] px-8 py-2 bg-[#2EECC5]/10 hover:bg-[#2EECC5]/50 hover:border-[#2EECC5] cursor-pointer transition-all duration-300 text-white disabled:opacity-40"
-                                onClick={() => sendRequest()}
-                                disabled={contact.length < 3 && name.length < 2}>
+                                onClick={() => sendRequest()}>
                                 <Icon icon="ph:plus-bold"/>
                                 Додати роботу
                             </button>
                         </div>
 
-                        {
-                            name.length < 1 ? (
-                                <p className='text-sm text-center text-white/70 mt-2'>Спочатку заповніть необхідну інформацію.</p>
-                            ) : (
-                                ''
-                            )
-                        }
-
-                        <div className="mt-4 text-center text-xs text-white/80">
+                        <div className="mt-6 text-center text-xs text-white/80">
                             Менеджер звʼяжеться з вами якомога швидше.
                             <span>Всі права захищено.</span>
                         </div>
