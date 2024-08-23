@@ -168,13 +168,13 @@ const Works: React.FC = () => {
                     </AnimatePresence>
                 </motion.div>
 
-                <div className="mt-16 w-full mx-auto flex justify-center">
-                    <Button
-                        borderRadius="9999px"
-                        className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">
-                        Замовити
-                    </Button>
-                </div>
+                {/*<div className="mt-16 w-full mx-auto flex justify-center">*/}
+                {/*    <Button*/}
+                {/*        borderRadius="9999px"*/}
+                {/*        className="border-[#2EECC5] bg-[#2EECC5]/10 text-lg font-bold">*/}
+                {/*        Замовити*/}
+                {/*    </Button>*/}
+                {/*</div>*/}
             </div>
         </section>
     );

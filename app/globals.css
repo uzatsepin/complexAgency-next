@@ -12,101 +12,138 @@ body {
     border-radius: 4px;
     margin: 15px;
     background: transparent;
-  }
-  
-  *::-webkit-scrollbar-track {
+}
+
+*::-webkit-scrollbar-track {
     background: #161617;
-  }
-  
-  *::-webkit-scrollbar-track:hover {
+}
+
+*::-webkit-scrollbar-track:hover {
     background: #161617;
-  }
-  
-  *::-webkit-scrollbar-thumb {
+}
+
+*::-webkit-scrollbar-thumb {
     background: #2eecc5;
     border-radius: 4px;
-  }
-  
-  *::-webkit-scrollbar-thumb:hover {
-    background: #161617;
-  }
-  
-  *::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
+}
 
-  .no-visible-scrollbar {
+*::-webkit-scrollbar-thumb:hover {
+    background: #161617;
+}
+
+*::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.no-visible-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
-  }
-  
-  .no-visible-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  
+}
 
-  @layer utilities {
+.no-visible-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+
+@layer utilities {
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
-   /* Hide scrollbar for IE, Edge and Firefox */
+
+    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-  }
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .custom-element {
-  position: relative;
-  @apply border-[2px] border-spacing-1 uppercase;
+    position: relative;
+    @apply border-[2px] border-spacing-1 uppercase;
 }
 
 .custom-element::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 1.5px solid #2eecc5;
-  border-radius: 4px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: translate(0, 0);
-  opacity: 0;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid #2eecc5;
+    border-radius: 4px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translate(0, 0);
+    opacity: 0;
+    z-index: -1;
 }
 
 .custom-element:hover::before {
-  transform: translate(9px, 11px);
-  opacity: 0.4;
+    transform: translate(9px, 11px);
+    opacity: 0.4;
 }
 
 .custom-element:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 @keyframes gradient-flash {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .text-gradient {
-  background: linear-gradient(270deg, #2EECC5, #FFF, #00ffea, #2EECC5);
-  background-size: 400% 400%;
-  animation: gradient-flash 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background: linear-gradient(270deg, #2EECC5, #FFF, #00ffea, #2EECC5);
+    background-size: 400% 400%;
+    animation: gradient-flash 4s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-descr h2 {
+    @apply text-2xl font-bold mb-6 text-center;
+}
+
+.text-descr h3 {
+    @apply text-xl font-bold mb-6;
+}
+
+.text-descr h4 {
+    @apply text-lg font-bold mb-6;
+}
+
+.text-descr p {
+    @apply text-sm lg:text-lg mb-2;
+}
+
+.text-descr ul {
+    @apply mt-6 mb-4
+}
+
+.text-descr ul li {
+    position: relative;
+    &:before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background-color: #2eecc5;
+        border-radius: 50%;
+        position: absolute;
+        top: 8px;
+        left: 0;
+    }
+
+    @apply pl-4 text-sm lg:text-lg;
 }

@@ -9,6 +9,7 @@ import Counter from "../animata/text/counter";
 import { Icon } from "@iconify/react";
 import { Testimonials } from "../testimonials/testimonials";
 import Blog from "@/components/Blog/Blog";
+import Link from "next/link";
 
 export default function WhyUs() {
     const titleText = [
@@ -51,6 +52,24 @@ export default function WhyUs() {
             title: "Професійний супровід",
             text: "Надаємо постійну підтримку та консультації на всіх етапах проекту, допомагаючи вам досягти поставлених цілей.",
             image: "./support-icon.svg"
+        },
+        {
+            title: "Веб-додатки на Vue",
+            text: "Розробка сучасних веб-додатків на Vue з високою швидкістю та ефективністю.",
+            image: "./vuejs.svg",
+            link: "/vue"
+        },
+        {
+            title: "Веб-застосунки на React",
+            text: "Створення інтерактивних веб-застосунків на React для покращення користувацького досвіду.",
+            image: "./reactjs.svg",
+            link: "/react"
+        },
+        {
+            title: "Розробка на WordPress",
+            text: "Налаштування та розробка функціональних сайтів на WordPress для будь-яких потреб.",
+            image: "./wordpress.svg",
+            link: "/#wordpress"
         }
     ];
 
@@ -126,20 +145,32 @@ export default function WhyUs() {
                     initial="hidden"
                     animate="show"
                     exit="hidden"
-                    className="flex gap-6 mt-8 justify-between flex-col xl:flex-row">
+                    className="flex flex-wrap gap-6 mt-8 justify-between flex-col xl:flex-row">
                     {othersCard.map((card, index) => (
-                        <GithubCardSkew
-                            key={index}
-                            title={card.title}
-                            text={card.text}
-                            image={card.image}
-                        />
+                        card.link ? (
+                            <Link key={index} href={card.link} className='flex col'>
+                                <GithubCardSkew
+                                    title={card.title}
+                                    text={card.text}
+                                    image={card.image}
+                                />
+                            </Link>
+                        ) : (
+                            <GithubCardSkew
+                                key={index}
+                                title={card.title}
+                                text={card.text}
+                                image={card.image}
+                            />
+                        )
                     ))}
                 </motion.div>
 
-                {/*<div className="mt-24">*/}
-                {/*    <Blog />*/}
-                {/*</div>*/}
+                {/*BLOG*/}
+
+                <div className="mt-24">
+                    <Blog />
+                </div>
 
                 <motion.div
                     variants={fadeIn("top", 0.6)}

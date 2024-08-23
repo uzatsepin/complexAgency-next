@@ -182,7 +182,7 @@ export default function Contacts() {
                     </div>
                 </div>
                 <div>
-                    <Image src='/phone-img.png' alt="phone-img" width={500} height={498} className="absolute -bottom-10 right-0 hidden lg:flex"/>
+                    <Image src='/phone-img.png' alt="phone-img" priority={false} width={500} height={498} className="absolute -bottom-10 right-0 hidden lg:flex"/>
                 </div>
             </div>
         </div>

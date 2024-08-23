@@ -53,10 +53,15 @@ export default function HeroPage() {
             icon: "lucide:shield-question"
         },
         {
+            name: "Блог",
+            link: "/blog",
+            icon: "lucide:phone-call"
+        },
+        {
             name: "Контакти",
             link: "#contacts",
             icon: "lucide:phone-call"
-        }
+        },
     ];
 
     const closeModal = () => {
@@ -202,7 +207,9 @@ export default function HeroPage() {
                             src={"/main-person.png"}
                             width={670}
                             height={709}
-                            alt=""
+                            alt="Main Person"
+                            quality={80}
+                            priority={true}
                             className="translate-z-0 w-full h-full"
                         />
                     </div>

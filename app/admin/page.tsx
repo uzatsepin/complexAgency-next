@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Counter from "@/components/animata/text/counter";
 import { Icon } from "@iconify/react";
 import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
-import axios from "axios";
 import { useRequestStore } from "@/store/useRequestStore";
 
 interface IAnalytics {

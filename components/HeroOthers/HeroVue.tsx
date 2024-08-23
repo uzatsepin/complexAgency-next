@@ -48,6 +48,11 @@ export default function HeroVue() {
             icon: "lucide:shield-question"
         },
         {
+            name: "Блог",
+            link: "/blog",
+            icon: "lucide:phone-call"
+        },
+        {
             name: "Контакти",
             link: "/#contacts",
             icon: "lucide:phone-call"

@@ -1,7 +1,5 @@
 "use client";
 import {Toaster, toast} from "sonner";
-import Image from "next/image";
-import Link from "next/link";
 import {Icon} from "@iconify/react";
 import React, {useEffect, useState} from "react";
 import {pb} from "@/pb";
