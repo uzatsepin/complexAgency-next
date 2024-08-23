@@ -8,6 +8,7 @@ import { fadeIn } from "@/lib/variants";
 import Counter from "../animata/text/counter";
 import { Icon } from "@iconify/react";
 import { Testimonials } from "../testimonials/testimonials";
+import Blog from "@/components/Blog/Blog";
 
 export default function WhyUs() {
     const titleText = [
@@ -135,6 +136,10 @@ export default function WhyUs() {
                         />
                     ))}
                 </motion.div>
+
+                {/*<div className="mt-24">*/}
+                {/*    <Blog />*/}
+                {/*</div>*/}
 
                 <motion.div
                     variants={fadeIn("top", 0.6)}

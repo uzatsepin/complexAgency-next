@@ -79,7 +79,6 @@ const Works: React.FC = () => {
             setPortfolio(worksData);
             setIsLoading(false);
 
-            console.log(worksData)
         } catch (e) {
             console.error(e);
             setError("Ошибка при загрузке данных");

@@ -5,7 +5,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'picsum.photos',
+                hostname: 'developers.elementor.com',
                 port: '',
                 pathname: '/**'
             },
@@ -14,7 +14,7 @@ const nextConfig = {
                 hostname: 'pb.razdev.website',
                 port: '',
                 pathname: '/**'
-            }
+            },
         ]
     }
 };
