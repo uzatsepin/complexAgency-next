@@ -23,13 +23,13 @@ export default function Footer() {
                 <a href='#' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
                     <Icon icon="ri:behance-fill" className="text-black h-6 w-6 md:h-8 md:w-8"/>
                 </a>
-                <a href='https://t.me/thecomplex_agency_news' target='_blank' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
+                <a href='https://t.me/thecomplex_agency_news' rel='nofollow' target='_blank' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
                     <Icon icon="bxl:telegram" className="text-black h-6 w-6 md:h-8 md:w-8"/>
                 </a>
-                <a href='https://www.instagram.com/thecomplex.agency/' target='_blank' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
-                    <Icon icon="ri:instagram-line" className="text-black h-6 w-6 md:h-8 md:w-8"/>
+                <a href='https://www.instagram.com/thecomplex.agency/' rel='nofollow' target='_blank' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
+                    <Icon icon="ri:instagram-line" className="text-black h-6 w-6 md:h-8 md:w-8" />
                 </a>
-                <a href='mailto:thecomplexagency@gmail.com' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
+                <a href='mailto:thecomplexagency@gmail.com' rel='nofollow' className="p-2 md:p-4 w-10 h-10 md:h-fit md:w-fit bg-white rounded-full outer-circle hover:scale-125 cursor-pointer transition-all duration-300 hover:bg-[#2CEEC2] group">
                     <Icon icon="basil:gmail-outline" className="text-black h-6 w-6 md:h-8 md:w-8"/>
                 </a>
             </div>

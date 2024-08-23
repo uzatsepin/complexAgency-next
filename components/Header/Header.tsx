@@ -62,14 +62,15 @@ export default function Header({links}: {links: ILinks[]}) {
 
     return (
         <div className="flex items-center justify-between px-2 md:px-0">
-            <Link href="/">
+            <Link href="/" className='flex flex-col items-center gap-4 font-bold text-xl'>
                 <Image
-                    src="./logo.svg"
-                    width={131}
+                    src="/new-logo.png"
+                    width={65}
                     height={65}
                     alt="logo"
-                    className="cursor-pointer h-12 w-32 md:h-16 md:w-36"
+                    className="cursor-pointer"
                 />
+                <h2>Complex <span className='text-gradient'>Agency</span></h2>
             </Link>
             <div>
                 <ul className="gap-2 md:gap-10 border border-[#FFFFFF30] px-2 py-1 md:px-6 md:py-2 rounded-full flex fixed md:relative right-1/2 md:right-0 translate-x-1/2 md:translate-x-0 bottom-6 md:bottom-0 z-10 w-11/12 md:w-fit bg-zinc-900  bg-opacity-80 backdrop-blur-2xl justify-center">
