@@ -7,9 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://www.the-complex.agency/"),
-    title: "Complex Agency – комплексні рішення для твого бізнесу. Створення сайтів, лендінгів, розробка веб-додатків",
-    description: "Ми - агенство цифрових рішень під ключ, від дизайну до розробки вашого вебсайту, ми виконаємо твое побажання у сфері веб-розробки.",
-    keywords: ['website', 'landing', 'web', 'development', 'design', 'complex', 'agency', 'digital', 'solutions', 'business', 'javascript', 'seo', 'vue', 'vuejs', 'react', 'reactjs', 'html', 'css', 'scss', 'sass', 'next'],
+    title: "Complex Agency – Розробка сайтів і додатків для бізнесу",
+    description: "Ми – агентство цифрових рішень під ключ: від дизайну до розробки вебсайту. Виконаємо твої побажання у веб-розробці.",
+    keywords: ['website', 'landing', 'web development', 'design', 'digital solutions', 'business', 'javascript', 'seo', 'vue', 'react', 'html', 'css', 'next'],
     icons: {
         icon: "/favicon.png"
     },
