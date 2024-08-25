@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import {collectionIdPortfolio, getImgUrl} from "@/lib/getImgUrl";
-import {IPortfolio} from "@/components/Works/Works";
+import {IPortfolio} from "@/components/MainPage/Works/Works";
 import Link from "next/link";
 
 

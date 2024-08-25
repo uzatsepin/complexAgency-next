@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState} from "react";
-import Header from "../Header/Header";
+import Header from "@/components/MainPage/Header/Header";
 import Image from "next/image";
 import {motion} from "framer-motion";
 import {fadeIn} from "@/lib/variants";

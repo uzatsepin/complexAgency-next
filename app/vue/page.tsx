@@ -1,9 +1,9 @@
 import React from 'react'
 
 import type {Metadata} from 'next'
-import Contacts from '@/components/Contacts/Contacts'
-import Footer from '@/components/Footer/Footer'
-import HeroVue from "@/components/HeroOthers/HeroVue";
+import Contacts from '@/components/MainPage/Contacts/Contacts'
+import Footer from '@/components/MainPage/Footer/Footer'
+import HeroVue from "@/components/VuePage/HeroVue";
 import AccordionVue from "@/components/Accordion/AccordionVue";
 import WhyVue from "@/components/VuePage/WhyVue";
 

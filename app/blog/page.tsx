@@ -1,10 +1,10 @@
 'use client'
 
-import Header from "@/components/Header/Header";
+import Header from "@/components/MainPage/Header/Header";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {pb} from "@/pb";
 import BlogItem from "@/components/Blog/BlogItem";
-import Footer from "@/components/Footer/Footer";
+import Footer from "@/components/MainPage/Footer/Footer";
 import {AnimatePresence, motion} from "framer-motion";
 
 interface ITag {

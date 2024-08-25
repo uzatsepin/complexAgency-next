@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import GithubCardSkew from "../animata/card/github-card-skew";
-import { TypewriterEffect } from "../ui/typewriter-effect";
+import GithubCardSkew from "../../animata/card/github-card-skew";
+import { TypewriterEffect } from "../../ui/typewriter-effect";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/variants";
-import Counter from "../animata/text/counter";
+import Counter from "../../animata/text/counter";
 import { Icon } from "@iconify/react";
-import { Testimonials } from "../testimonials/testimonials";
+import { Reviews } from "@/components/MainPage/Reviews/Reviews";
 import Blog from "@/components/Blog/Blog";
 import Link from "next/link";
 
@@ -234,7 +234,7 @@ export default function WhyUs() {
                     <div className="mt-24 flex justify-center">
                         <TypewriterEffect words={reviewsWords} />
                     </div>
-                    <Testimonials />
+                    <Reviews />
                 </div>
             </div>
         </section>

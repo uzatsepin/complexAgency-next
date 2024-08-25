@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState} from "react";
-import Header from "../Header/Header";
+import Header from "@/components/MainPage/Header/Header";
 import Image from "next/image";
 import {motion} from "framer-motion";
 import {fadeIn} from "@/lib/variants";
@@ -12,10 +12,10 @@ import CustomModal from "@/components/Others/CustomModal";
 import {pb} from "@/pb";
 import {toast, Toaster} from "sonner";
 
-export default function HeroReact() {
+export default function HeroVue() {
     const title = [
         {
-            text: "Якісна",
+            text: "Комплексна",
             className: "text-white"
         },
         {
@@ -31,7 +31,7 @@ export default function HeroReact() {
             className: "text-white"
         },
         {
-            text: "ReactJS",
+            text: "VueJS",
             className: "text-[#2CE8C2]"
         }
     ];
@@ -102,7 +102,7 @@ export default function HeroReact() {
                         className="md:text-left"
                     />
                     <p className="text-sm sm:text-xl text-[#ffffff]/65 md:text-left">
-                        Ми - агенство цифрових рішень під ключ, від дизайну до розробки, ми виконаємо твое побажання застосовуючи framework ReactJS, що забезпечить якісну та швидку роботу вашого веб-додатку.
+                        Ми - агенство цифрових рішень під ключ, від дизайну до розробки, ми виконаємо твое побажання застосовуючи бібліотеку VueJS, що забезпечить якісну, швидку та маштабуючу роботу вашого веб-додатку.
                     </p>
                     <motion.div
                         variants={fadeIn("top", 0.4)}
@@ -186,9 +186,9 @@ export default function HeroReact() {
                     <div
                         className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[470px] xl:max-h-[520px] absolute bottom-0 right-0 ">
                         <Image
-                            src={"/react-hexagon.png"}
-                            width={570}
-                            height={570}
+                            src={"/vuejs-logo.svg"}
+                            width={370}
+                            height={370}
                             alt=""
                             className="translate-z-0 w-full h-full"
                         />

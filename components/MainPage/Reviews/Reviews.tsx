@@ -1,9 +1,9 @@
 "use client";
  
 import React from "react";
-import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
+import { InfiniteMovingCards } from "../../ui/infinite-moving-cards";
  
-export function Testimonials() {
+export function Reviews() {
   return (
     <div className="mt-8 rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards

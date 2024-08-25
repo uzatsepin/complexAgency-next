@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
-import { TypewriterEffect } from "../ui/typewriter-effect";
-import { Button } from "../ui/moving-border";
+import { TypewriterEffect } from "../../ui/typewriter-effect";
+import { Button } from "../../ui/moving-border";
 import Image from "next/image";
 import { toast } from "sonner";
 import { pb } from "@/pb";

@@ -2,12 +2,13 @@
 
 import React, {useState} from "react";
 import Image from "next/image";
-import { Button } from "../ui/moving-border";
+import { Button } from "../../ui/moving-border";
 import {pb} from "@/pb";
-import {toast, Toaster} from "sonner";
+import {toast} from "sonner";
 import CustomModal from "@/components/Others/CustomModal";
 import {Icon} from "@iconify/react";
 import Link from "next/link";
+import AnimatedLinks from "@/components/MainPage/AnimatedLinks/AnimatedLinks";
 
 interface ILinks {
     name: string
@@ -62,7 +63,7 @@ export default function Header({links}: {links: ILinks[]}) {
 
     return (
         <div className="flex items-center justify-between px-2 md:px-0">
-            <Link href="/" className='flex flex-col items-center gap-4 font-bold text-xl'>
+            <Link href="/public" className='flex flex-col items-center gap-4 font-bold text-xl'>
                 <Image
                     src="/new-logo.png"
                     width={65}
@@ -74,19 +75,7 @@ export default function Header({links}: {links: ILinks[]}) {
                 <h2 className='text-sm lg:text-2xl'>Complex <span className='text-gradient'>Agency</span></h2>
             </Link>
             <div>
-                <ul className="gap-1 md:gap-8 border border-[#FFFFFF30] px-2 py-1 md:px-6 md:py-2 rounded-full flex fixed md:relative right-1/2 md:right-0 translate-x-1/2 md:translate-x-0 bottom-6 md:bottom-0 z-10 w-11/12 md:w-fit bg-zinc-900  bg-opacity-80 backdrop-blur-2xl justify-center">
-                    {links.map((link) => (
-                        <li
-                            key={link.name}
-                            className="flex items-center border border-transparent gap-2 py-2 px-2 lg:py-2 lg:px-4 rounded-full hover:bg-[#21232C] transition-all duration-300 cursor-pointer hover:text-[#2EECC5]">
-                            <Link
-                                href={link.link}
-                                className="text-sm md:text-lg">
-                                {link.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <AnimatedLinks links={links} />
             </div>
             <div>
                 <Button

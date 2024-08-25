@@ -3,9 +3,9 @@ import {Toaster, toast} from "sonner";
 import {Icon} from "@iconify/react";
 import React, {useEffect, useState} from "react";
 import {pb} from "@/pb";
-import PortfolioCard from "@/components/Works/PortfolioCard/PortfolioCard";
+import PortfolioCard from "@/components/MainPage/Works/PortfolioCard/PortfolioCard";
 import MultiSelect from "@/components/Others/MultiSelect";
-import {IPortfolio} from "@/components/Works/Works";
+import {IPortfolio} from "@/components/MainPage/Works/Works";
 
 const EditPage = ({params}: { params: { id: string } }) => {
     const [portfolioItem, setPortfolioItem] = useState<IPortfolio>();

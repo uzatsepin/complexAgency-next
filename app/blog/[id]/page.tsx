@@ -1,13 +1,13 @@
 'use client'
 
-import Header from "@/components/Header/Header";
+import Header from "@/components/MainPage/Header/Header";
 import React, {useEffect, useState} from "react";
 import {pb} from "@/pb";
 import {IPost} from "@/app/blog/page";
 import dayjs from "dayjs";
 import Image from "next/image";
 import {getImgUrl} from "@/lib/getImgUrl";
-import Footer from "@/components/Footer/Footer";
+import Footer from "@/components/MainPage/Footer/Footer";
 import {Icon} from "@iconify/react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";

@@ -1,6 +1,6 @@
 import React from "react";
-import { TypewriterEffect } from "../ui/typewriter-effect";
-import { TarifsScroll } from "./TarifsScroll/TarifsScroll";
+import { TypewriterEffect } from "../../ui/typewriter-effect";
+import PricingBlock from "@/components/MainPage/Tarifs/PricingCards";
 
 export default function Tarifs() {
     const title = [
@@ -34,10 +34,12 @@ export default function Tarifs() {
                         className="text-center"
                     />
                 </div>
-            </div>
-            <div className="mt-12">
-                    <TarifsScroll />
+                <div className="mt-12 flex gap-6 overflow-hidden">
+                    {/*<TarifsScroll />*/}
+                    <PricingBlock/>
                 </div>
+            </div>
+
         </div>
     );
 }

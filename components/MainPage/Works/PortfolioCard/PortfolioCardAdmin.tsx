@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import CustomModal from "@/components/Others/CustomModal";
 import Link from "next/link";
 import {collectionIdPortfolio, getImgUrl} from "@/lib/getImgUrl";
-import {IPortfolio} from "@/components/Works/Works";
+import {IPortfolio} from "@/components/MainPage/Works/Works";
 
 interface IProps extends IPortfolio {
     delete: (id: string) => void

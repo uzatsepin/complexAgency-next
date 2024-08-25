@@ -2,9 +2,9 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PortfolioCard from "./PortfolioCard/PortfolioCard";
-import { TypewriterEffect } from "../ui/typewriter-effect";
+import { TypewriterEffect } from "../../ui/typewriter-effect";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button } from "../ui/moving-border";
+import { Button } from "../../ui/moving-border";
 import {pb} from "@/pb";
 
 export interface IPortfolio {
@@ -121,7 +121,7 @@ const Works: React.FC = () => {
     return (
         <section
             id="portfolio"
-            className="bg-worksBg bg-cover bg-center min-h-screen">
+            className="bg-worksBg bg-cover bg-center">
             <div className="container mx-auto px-2 sm:px-0">
                 <div className="mt-12 lg:mt-24">
                     <TypewriterEffect
