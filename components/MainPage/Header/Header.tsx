@@ -63,7 +63,7 @@ export default function Header({links}: {links: ILinks[]}) {
 
     return (
         <div className="flex items-center justify-between px-2 md:px-0">
-            <Link href="/public" className='flex flex-col items-center gap-4 font-bold text-xl'>
+            <Link href="/" className='flex flex-col items-center gap-4 font-bold text-xl'>
                 <Image
                     src="/new-logo.png"
                     width={65}
