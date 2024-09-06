@@ -186,7 +186,7 @@ export default function HeroVue() {
                     <div
                         className="w-full h-full max-w-[230px] max-h-[260px] sm:max-w-[370px] sm:max-h-[409px] xl:max-w-[470px] xl:max-h-[520px] absolute bottom-0 right-0 ">
                         <Image
-                            src={"/vuejs-logo.svg"}
+                            src={"/new-logo.png"}
                             width={370}
                             height={370}
                             alt=""
