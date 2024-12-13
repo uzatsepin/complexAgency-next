@@ -53,9 +53,14 @@ export default function HeroPage() {
             icon: "lucide:shield-question"
         },
         {
+            name: "Портфоліо",
+            link: "/#portfolio",
+            icon: "lucide:briefcase"
+        },
+        {
             name: "Блог",
             link: "/blog",
-            icon: "lucide:phone-call"
+            icon: "lucide:scroll-text"
         },
         {
             name: "Контакти",

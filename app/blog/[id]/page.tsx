@@ -21,6 +21,11 @@ export default function BlogPage({params}: { params: { id: string } }) {
             icon: "lucide:home"
         },
         {
+            name: "Портфоліо",
+            link: "/#portfolio",
+            icon: "lucide:briefcase"
+        },
+        {
             name: "Про нас",
             link: "/#whyUs",
             icon: "lucide:shield-question"
