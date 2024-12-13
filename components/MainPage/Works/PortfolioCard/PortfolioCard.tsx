@@ -23,7 +23,7 @@ export default function PortfolioCard({id,image, title, descr, type, technologie
                     />
                 </div>
                 <div className="absolute inset-0 bg-black bg-opacity-80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white text-xl font-bold">
+                    <span className="text-white text-xl font-bold px-4 text-center">
                         {hoverText}
                     </span>
                 </div>
